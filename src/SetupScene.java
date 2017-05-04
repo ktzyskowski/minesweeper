@@ -4,18 +4,15 @@ import javafx.scene.layout.Pane;
 
 public class SetupScene extends Scene {
 
-  private Pane root = new Pane();
+  private Pane root;
   public static final int SCENEWIDTH = 500;
   public static final int SCENEHEIGHT = 500;
 
   public SetupScene()
   {
-    super(root, SetupScene.SCENEWIDTH, SetupScene.SCENEHEIGHT);
-  }
-
-  public Pane getRoot()
-  {
-    return root;
+    super(null, SetupScene.SCENEWIDTH, SetupScene.SCENEHEIGHT);
+    root = new Pane();
+    this.setRoot(root);
   }
 
 }
