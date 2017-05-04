@@ -11,12 +11,12 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage)
   {
-    Pane root = new Pane();         // W    H
-    Scene mainScene = new Scene(root, 500, 500);
+
+    SetupScene mainSetup = new SetupScene();
+
     primaryStage.setTitle("Minesweeper")
-    primaryStage.setScene(mainScene);
+    primaryStage.setScene(mainSetup);
     primaryStage.show();
   }
-
 
 }
