@@ -14,7 +14,7 @@ public class Main extends Application {
 
     SetupScene mainSetup = new SetupScene();
 
-    primaryStage.setTitle("Minesweeper")
+    primaryStage.setTitle("Minesweeper");
     primaryStage.setScene(mainSetup);
     primaryStage.show();
   }
