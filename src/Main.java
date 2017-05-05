@@ -11,12 +11,20 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage)
   {
-
-    SetupScene mainSetup = new SetupScene();
+    Pane ssRoot = new Pane();
+    SetupScene mainSetup = new SetupScene(ssRoot);
 
     primaryStage.setTitle("Minesweeper");
     primaryStage.setScene(mainSetup);
     primaryStage.show();
+
+    mainSetup.getStartButton().setOnAction(actionHandler -> {
+      int[] boardSize = mainSetup.getBoardSize();
+      if (boardSize != null){
+        // Do something
+      }
+    });
+
   }
 
   public static void main(String[] args) {
