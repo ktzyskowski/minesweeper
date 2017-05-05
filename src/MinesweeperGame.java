@@ -40,7 +40,7 @@ public class MinesweeperGame
     * @param row row of the tile to get the number for.
     * @param col column of the tile to get the number for.
    */
-  public getNumber(int row, int col)
+  public int getNumber(int row, int col)
   {
     int number = 0;
     for (int r = row - 1; r <= row + 1; r++)
