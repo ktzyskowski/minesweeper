@@ -1,7 +1,5 @@
 public interface Tile {
 
-  private String tile;
-
   /**
     @return: returns type of tile
   */
