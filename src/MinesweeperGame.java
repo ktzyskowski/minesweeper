@@ -63,4 +63,10 @@ public class MinesweeperGame
 
   }
 
+  public Tile updateTile(int row, int col, Tile newTile)
+  {
+    Tile oldTile = board[row][col];
+    board[row][col] = newTile;
+    return oldTile;
+
 }
