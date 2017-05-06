@@ -57,12 +57,21 @@ public class MinesweeperGame
 
   }
 
+  /** getter method for the board.
+   */
   public Tile[][] getBoard()
   {
     return board;
 
   }
 
+  /** updator method for the board. Sets the position at row, col to a new tile and
+    * returns the old tile.
+    * @param row row of the tile being updated.
+    * @param col column of the tile being updated.
+    * @param newTile new tile to replace old tile.
+    * @return returns the tile that is being replaced by newTile.
+   */
   public Tile updateTile(int row, int col, Tile newTile)
   {
     Tile oldTile = board[row][col];
