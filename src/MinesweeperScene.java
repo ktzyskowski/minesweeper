@@ -20,7 +20,7 @@ public class MinesweeperScene extends Scene {
 
   public MinesweeperScene(Pane root, MinesweeperGame game, int width, int height)
   {
-    super(root, width * (11), height * 11);
+    super(root, width * (16), height * 16);
     this.root = root;
     this.game = game;
     tilesPane = new GridPane();

@@ -18,20 +18,20 @@ public class GUITile extends Rectangle{
     public GUITile(Tile me, int row, int col)
     {
         super();
-        this.setWidth(10);
-        this.setHeight(10);
+        this.setWidth(15);
+        this.setHeight(15);
         this.me = me;
         this.row = row;
         this.col = col;
         this.depressed = false;
-        this.setFill(Color.BLUE);
+        this.setFill(Color.LIGHTGRAY);
         this.setStrokeWidth(1.0);
         this.setStroke(Color.BLACK);
 
         this.setOnMouseClicked(mouseEvent -> {
             if (!depressed){
                 depressed = true;
-                this.setFill(Color.WHITE);
+                this.setFill(Color.GRAY);
             }
         });
 
