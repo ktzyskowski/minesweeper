@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class MinesweeperGame
 {
   private Tile[][] board;
@@ -72,9 +74,62 @@ public class MinesweeperGame
     * @param newTile new tile to replace old tile.
     * @return returns the tile that is being replaced by newTile.
    */
-  public Tile updateTile(int row, int col, Tile newTile) {
+  public Tile updateTile(int row, int col, Tile newTile)
+  {
     Tile oldTile = board[row][col];
     board[row][col] = newTile;
     return oldTile;
+
   }
+
+  /** method that returns a hashmap of tiles to be revealed on click
+   */
+  public HashMap<int[], Tile> getReveals(int startPosX, int startPosY)
+  {
+      // create new HashMap tileReturn with key of Tile & value of its position in 2D array
+      HashMap<int[], Tile> tileReturn = new HashMap<>int[], Tile>();
+
+      // starting at startPosX & startPosY, go through surrounding areas until you are 1 tile away from bomb :    | you | bomb |
+      // calculate adjacent bombs, tileReturn.put(new NumberTile(numAdj), row, column)
+      int [] pos = {startPosX, startPosY};
+      Tile startTile = new NumberTile(getNumber(pos[0], pos[1]));
+      tileReturn.put(pos, startTile);
+      getRevealsHelper(pos[0], pos[1], tileReturn);
+
+      // once nothing left to reveal, return tileReturn
+
+      return tileReturn;
+  }
+
+  /** helper method for getReveals() method.
+   */
+  private boolean getRevealsHelper(int startPosX, startPosY, HashMap<int[], Tile> hashMap)
+  {
+    // ... check if bombs are adjacent
+    if (getNumber(startPosX, startPosY) > 0)
+    {
+      return false;
+    }
+    // ... else continue recursion
+    else
+    {
+      // ... check for bounds
+      if (startPosX > 0 && startPosX < board.length && startPosY > 0 and startPosY < board[startPosX].length)
+      {
+        hashMap.put({startPosX, startPosY}, new NumberTile(getNumber(startPosX, startPosY)));
+        for (int i = -1; i <= 1; i += 2)
+        {
+          for (int j = -1; j <= 1; j += 2)
+          {
+            return getRevealsHelper(startPosX + i, startPosY + j, hashMap);
+          }
+        }
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
+
 }
