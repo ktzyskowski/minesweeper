@@ -4,6 +4,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.HashMap;
+
 public class GUITile extends Rectangle{
 
     private int row, col;
