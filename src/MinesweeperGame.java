@@ -57,4 +57,10 @@ public class MinesweeperGame
 
   }
 
+  public Tile[][] getBoard()
+  {
+    return board;
+
+  }
+
 }
