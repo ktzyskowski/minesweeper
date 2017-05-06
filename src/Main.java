@@ -6,22 +6,30 @@ import javafx.scene.layout.Pane;
 
 public class Main extends Application {
 
-  // TODO: Add methods for determining game size / add different scene for game setup.
+  private Pane ssRoot, gameRoot;
+  private SetupScene mainSetup;
+  private MinesweeperGame game;
+  private MinesweeperScene minesweeperScene;
 
   @Override
   public void start(Stage primaryStage)
   {
-    Pane ssRoot = new Pane();
-    SetupScene mainSetup = new SetupScene(ssRoot);
+    ssRoot = new Pane();
+    mainSetup = new SetupScene(ssRoot);
 
     primaryStage.setTitle("Minesweeper");
     primaryStage.setScene(mainSetup);
+    primaryStage.setResizable(false);
     primaryStage.show();
 
     mainSetup.getStartButton().setOnAction(actionHandler -> {
       int[] boardSize = mainSetup.getBoardSize();
       if (boardSize != null){
-        // Do something
+        int bombs = (int)(.15 * boardSize[0] * boardSize[1]);
+        game = new MinesweeperGame(boardSize[0], boardSize[1], bombs);
+        gameRoot = new Pane();
+        minesweeperScene = new MinesweeperScene(gameRoot, game, boardSize[0], boardSize[1]);
+        primaryStage.setScene(minesweeperScene);
       }
     });
 

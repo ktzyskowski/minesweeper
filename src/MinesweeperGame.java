@@ -72,10 +72,9 @@ public class MinesweeperGame
     * @param newTile new tile to replace old tile.
     * @return returns the tile that is being replaced by newTile.
    */
-  public Tile updateTile(int row, int col, Tile newTile)
-  {
+  public Tile updateTile(int row, int col, Tile newTile) {
     Tile oldTile = board[row][col];
     board[row][col] = newTile;
     return oldTile;
-
+  }
 }

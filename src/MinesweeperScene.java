@@ -1,11 +1,14 @@
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 public class MinesweeperScene extends Scene {
 
   private Pane root;
-  public static final int SCENEWIDTH = 500;
-  public static final int SCENEHEIGHT = 500;
+  private GridPane tilesPane;
+  private int sceneWidth;
+  private int sceneHeight;
 
   private MinesweeperGame game;
 
@@ -15,16 +18,25 @@ public class MinesweeperScene extends Scene {
    */
 
 
-  public MinesweeperScene(Pane root, MinesweeperGame game)
+  public MinesweeperScene(Pane root, MinesweeperGame game, int width, int height)
   {
-    super(root, SCENEWIDTH, SCENEHEIGHT);
+    super(root, width * (11), height * 11);
     this.root = root;
     this.game = game;
+    tilesPane = new GridPane();
+    translateIntoView();
+    this.root.getChildren().add(tilesPane);
   }
 
   public void translateIntoView()
   {
-
+    Tile[][] tiles = game.getBoard();
+    for (int i = 0; i < tiles.length; ++i){
+      for (int j = 0; j < tiles[i].length; ++j){
+        System.out.println(i + " " + j);
+        tilesPane.add(new GUITile(tiles[i][j], i, j), i,j);
+      }
+    }
   }
 
 
