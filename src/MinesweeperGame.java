@@ -24,7 +24,7 @@ public class MinesweeperGame
     {
       int randRow = (int)(Math.random() * rows);
       int randCol = (int)(Math.random() * cols);
-      if (! board[randRow][randCol] instanceof Bomb)
+      if (! (board[randRow][randCol] instanceof Bomb))
       {
         board[randRow][randCol] = new Bomb();
         bombs--;

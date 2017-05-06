@@ -15,7 +15,7 @@ public class Tile
    */
   public Tile()
   {
-    super("Tile");
+    this("Tile");
 
   }
 

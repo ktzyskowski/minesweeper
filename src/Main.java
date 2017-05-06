@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class Main extends Application {
 
-  // TODO: Add methods for determining game size / add different scence for game setup.
+  // TODO: Add methods for determining game size / add different scene for game setup.
 
   @Override
   public void start(Stage primaryStage)
