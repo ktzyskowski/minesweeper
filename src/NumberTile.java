@@ -2,9 +2,9 @@ public class NumberTile extends Tile {
 
     private int number;
 
-    public NumberTile(int number)
+    public NumberTile(int row, int col, int number)
     {
-        super();
+        super(row, col);
         this.number = number;
     }
 

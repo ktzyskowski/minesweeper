@@ -17,7 +17,7 @@ public class MinesweeperGame
     {
       for (int c = 0; c < cols; c++)
       {
-        board[r][c] = new Tile();
+        board[r][c] = new Tile(r,c);
       }
     }
 
@@ -26,9 +26,9 @@ public class MinesweeperGame
     {
       int randRow = (int)(Math.random() * rows);
       int randCol = (int)(Math.random() * cols);
-      if (! (board[randRow][randCol] instanceof Bomb))
+      if (! (board[randRow][randCol] instanceof Mine))
       {
-        board[randRow][randCol] = new Bomb();
+        board[randRow][randCol] = new Mine(randRow,randCol);
         bombs--;
       }
     }
@@ -49,7 +49,7 @@ public class MinesweeperGame
     {
       for (int c = col - 1; c <= col + 1; c++)
       {
-        if (r >= 0 && c >= 0 && r < board.length && c < board[row].length && (r != row && c != col) && board[r][c] instanceof Bomb)
+        if (r >= 0 && c >= 0 && r < board.length && c < board[row].length && (r != row && c != col) && board[r][c] instanceof Mine)
         {
             number++;
         }
@@ -92,7 +92,7 @@ public class MinesweeperGame
       // starting at startPosX & startPosY, go through surrounding areas until you are 1 tile away from bomb :    | you | bomb |
       // calculate adjacent bombs, tileReturn.put(new NumberTile(numAdj), row, column)
       int [] pos = {startPosX, startPosY};
-      Tile startTile = new NumberTile(getNumber(pos[0], pos[1]));
+      Tile startTile = new NumberTile(0, 1, getNumber(pos[0], pos[1]));
       tileReturn.put(pos, startTile);
       getRevealsHelper(pos[0], pos[1], tileReturn);
 
@@ -116,7 +116,7 @@ public class MinesweeperGame
         // ... check for bounds
         if (startPosX > 0 && startPosX < board.length && startPosY > 0 && startPosY <board[startPosX].length)
         {
-          hashMap.put(pos, new NumberTile(getNumber(startPosX, startPosY)));
+          hashMap.put(pos, new NumberTile(startPosX, startPosY, getNumber(startPosX, startPosY)));
           for (int i = -1; i <= 1; i += 2) {
             for (int j = -1; j <= 1; j += 2) {
               return getRevealsHelper(startPosX + i, startPosY + j, hashMap);
@@ -129,6 +129,7 @@ public class MinesweeperGame
         }
       }
     }
+    return false;
   }
 
 }

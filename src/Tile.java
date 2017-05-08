@@ -1,31 +1,42 @@
-public class Tile
-{
-  private String type;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-  /** specific constructor of Tile class. To be called by subclasses
-    * in super() calls.
-   */
-  public Tile(String type)
-  {
-    this.type = type;
+import java.util.HashMap;
 
-  }
+public class Tile extends Rectangle {
+    private boolean depressed;
+    private int row, col;
 
-  /** generic constructor to be used in construction of Tile objects.
-   */
-  public Tile()
-  {
-    this("Tile");
+    public Tile(int row, int col)
+    {
+        super();
+        this.row = row;
+        this.col = col;
+        this.setWidth(15);
+        this.setHeight(15);
+        this.depressed = false;
+        this.setFill(Color.LIGHTGRAY);
+        this.setStrokeWidth(1.0);
+        this.setStroke(Color.BLACK);
 
-  }
+        this.setOnMouseClicked(mouseEvent -> interact());
 
-  /**
-    * @return returns type of Tile.
-   */
-  public String getTileType()
-  {
-    return type;
 
-  }
+    }
+
+    public int [] getPos() {
+        int [] x = {row, col};
+        return x;
+    }
+
+    public void interact() {
+        if (!depressed) {
+            depressed = true;
+            this.setFill(Color.GRAY);
+        }
+    }
 
 }
