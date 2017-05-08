@@ -34,11 +34,14 @@ public class MinesweeperScene extends Scene {
     for (int i = 0; i < tiles.length; ++i){
       for (int j = 0; j < tiles[i].length; ++j){
         System.out.println(i + " " + j);
-        if (tiles[i][j] instanceof Mine) {
-          tilesPane.add(new Mine(i, j), i, j);
+        tilesPane.add(tiles[i][j], i, j);
+        /*if (tiles[i][j] instanceof Mine) {
+          tilesPane.add(tiles[i][j], i, j);
+        } else if (tiles[i][j] instanceof NumberTile) {
+          tilesPane.add(tiles[i][j], i, j);
         } else {
-          tilesPane.add(new Tile(i, j), i, j);
-        }
+          tilesPane.add(tiles[i][j], i, j);
+        }*/
       }
     }
   }

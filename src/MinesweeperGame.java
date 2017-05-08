@@ -33,6 +33,18 @@ public class MinesweeperGame
       }
     }
 
+    // ... add numbered tiles
+    for (int r = 0; r < board.length; r++)
+    {
+      for (int c = 0; c < board[r].length; c++)
+      {
+        if (getNumber(r, c) > 0)
+        {
+          board[r][c] = new NumberTile(getNumber(r, c), r, c);
+        }
+      }
+    }
+
   }
 
   /** method to return a number from 0 to 8 indicating the number of bombs
@@ -92,7 +104,7 @@ public class MinesweeperGame
       // starting at startPosX & startPosY, go through surrounding areas until you are 1 tile away from bomb :    | you | bomb |
       // calculate adjacent bombs, tileReturn.put(new NumberTile(numAdj), row, column)
       int [] pos = {startPosX, startPosY};
-      Tile startTile = new NumberTile(0, 1, getNumber(pos[0], pos[1]));
+      Tile startTile = board[startPosX][startPosY];
       tileReturn.put(pos, startTile);
       getRevealsHelper(pos[0], pos[1], tileReturn);
 
@@ -107,11 +119,17 @@ public class MinesweeperGame
   {
     int [] pos = {startPosX, startPosY};
     if (! (hashMap.containsKey(pos))) {
-      // ... check if bombs are adjacent
-      if (getNumber(startPosX, startPosY) > 0) {
+      // ... check if NumberTile
+      if (board[pos[0]][pos[1]] instanceof NumberTile) {
+        hashMap.put(pos, board[startPosX][startPosY]);
         return false;
       }
-      // ... else continue recursion
+      // ... check if mine
+      else if (board[pos[0]][pos[1]] instanceof Mine)
+      {
+        return false;
+      }
+      // ... must be a blank tile, continue recursion
       else {
         // ... check for bounds
         if (startPosX > 0 && startPosX < board.length && startPosY > 0 && startPosY <board[startPosX].length)
