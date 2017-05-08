@@ -87,7 +87,7 @@ public class MinesweeperGame
   public HashMap<int[], Tile> getReveals(int startPosX, int startPosY)
   {
       // create new HashMap tileReturn with key of Tile & value of its position in 2D array
-      HashMap<int[], Tile> tileReturn = new HashMap<>int[], Tile>();
+      HashMap<int[], Tile> tileReturn = new HashMap<>();
 
       // starting at startPosX & startPosY, go through surrounding areas until you are 1 tile away from bomb :    | you | bomb |
       // calculate adjacent bombs, tileReturn.put(new NumberTile(numAdj), row, column)
@@ -103,31 +103,30 @@ public class MinesweeperGame
 
   /** helper method for getReveals() method.
    */
-  private boolean getRevealsHelper(int startPosX, startPosY, HashMap<int[], Tile> hashMap)
+  private boolean getRevealsHelper(int startPosX, int startPosY, HashMap<int[], Tile> hashMap)
   {
-    // ... check if bombs are adjacent
-    if (getNumber(startPosX, startPosY) > 0)
-    {
-      return false;
-    }
-    // ... else continue recursion
-    else
-    {
-      // ... check for bounds
-      if (startPosX > 0 && startPosX < board.length && startPosY > 0 and startPosY < board[startPosX].length)
-      {
-        hashMap.put({startPosX, startPosY}, new NumberTile(getNumber(startPosX, startPosY)));
-        for (int i = -1; i <= 1; i += 2)
+    int [] pos = {startPosX, startPosY};
+    if (! (hashMap.containsKey(pos))) {
+      // ... check if bombs are adjacent
+      if (getNumber(startPosX, startPosY) > 0) {
+        return false;
+      }
+      // ... else continue recursion
+      else {
+        // ... check for bounds
+        if (startPosX > 0 && startPosX < board.length && startPosY > 0 && startPosY <board[startPosX].length)
         {
-          for (int j = -1; j <= 1; j += 2)
-          {
-            return getRevealsHelper(startPosX + i, startPosY + j, hashMap);
+          hashMap.put(pos, new NumberTile(getNumber(startPosX, startPosY)));
+          for (int i = -1; i <= 1; i += 2) {
+            for (int j = -1; j <= 1; j += 2) {
+              return getRevealsHelper(startPosX + i, startPosY + j, hashMap);
+            }
           }
         }
-      }
       else
-      {
-        return false;
+        {
+          return false;
+        }
       }
     }
   }
