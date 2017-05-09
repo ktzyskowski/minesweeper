@@ -57,16 +57,20 @@ public class MinesweeperGame
   public int getNumber(int row, int col)
   {
     int number = 0;
-    for (int r = row - 1; r <= row + 1; r++)
-    {
-      for (int c = col - 1; c <= col + 1; c++)
-      {
-        if (r >= 0 && c >= 0 && r < board.length && c < board[row].length && (r != row && c != col) && board[r][c] instanceof Mine)
-        {
-            number++;
+
+    for (int i = row - 1; i < row + 2; ++i){
+      for (int j = col - 1; j < col + 2; ++j){
+        if (i > 0 && i < board.length){
+          if (j > 0 && j < board[0].length){
+            if (i != row && j != col){
+              if (board[i][j] instanceof Mine)
+                ++number;
+            }
+          }
         }
       }
     }
+
     return number;
 
   }

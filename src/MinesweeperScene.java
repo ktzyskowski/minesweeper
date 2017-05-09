@@ -10,7 +10,7 @@ public class MinesweeperScene extends Scene {
   private int sceneWidth;
   private int sceneHeight;
 
-  private MinesweeperGame game;
+  public static MinesweeperGame game;
 
   /**
    * @param root  Root pane for the scene
@@ -20,7 +20,7 @@ public class MinesweeperScene extends Scene {
 
   public MinesweeperScene(Pane root, MinesweeperGame game, int width, int height)
   {
-    super(root, width * (16), height * 16);
+    super(root, width * (21), height * 21);
     this.root = root;
     this.game = game;
     tilesPane = new GridPane();
@@ -33,7 +33,6 @@ public class MinesweeperScene extends Scene {
     Tile[][] tiles = game.getBoard();
     for (int i = 0; i < tiles.length; ++i){
       for (int j = 0; j < tiles[i].length; ++j){
-        System.out.println(i + " " + j);
         tilesPane.add(tiles[i][j], i, j);
         /*if (tiles[i][j] instanceof Mine) {
           tilesPane.add(tiles[i][j], i, j);
