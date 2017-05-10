@@ -30,17 +30,16 @@ public class Main extends Application {
             return;
         }
 
-        System.out.println(rows + " " + columns + " " + mines);
         // ... check for valid arguments
-        if (inBounds(8,40, rows) &&
-                inBounds(8,40, columns) &&
-                inBounds(12,100, mines)) {
-            errormsg.setText("Game started");
+        if (inBounds(8, 40, rows) && inBounds(8, 40, columns) && inBounds(12, 100, mines)) {
             // ... start game
+
         } else {
             errormsg.setText("A number is not in the proper range");
             return;
         }
+
+        System.out.println(rows + " " + columns + " " + mines);
     }
 
     public static void main(String [] args) {
@@ -56,9 +55,9 @@ public class Main extends Application {
             bar.setAlignment(Pos.CENTER);
             Button startGame = new Button("Start");
             startGame.setOnAction(event -> start());
-            Label rows = new Label("Rows:");
-            Label cols = new Label("Columns:");
-            Label bombs = new Label("Mines:");
+            Label rowsLabel = new Label("Rows:");
+            Label colsLabel = new Label("Columns:");
+            Label minesLabel = new Label("Mines:");
             rowInput = new TextField();
             rowInput.setPromptText("8-40");
             rowInput.setMaxWidth(50);
@@ -68,24 +67,24 @@ public class Main extends Application {
             mineInput = new TextField();
             mineInput.setPromptText("12-100");
             mineInput.setMaxWidth(60);
-        bar.getChildren().addAll(startGame, rows, rowInput, cols, colInput, bombs, mineInput);
+        bar.getChildren().addAll(startGame, rowsLabel, rowInput, colsLabel, colInput, minesLabel, mineInput);
 
         // ... game
         GridPane game = new GridPane();
-        game.setStyle("-fx-background-color: #C0C0C0;");
+            game.setStyle("-fx-background-color: #C0C0C0;");
+
         // ... error message
         HBox error = new HBox();
-        error.setPadding(new Insets(10,10,10,10));
-        error.setAlignment(Pos.CENTER);
+            error.setPadding(new Insets(10,10,10,10));
+            error.setAlignment(Pos.CENTER);
             errormsg = new Label("");
         error.getChildren().addAll(errormsg);
 
         // ... linking everything together
         BorderPane main = new BorderPane();
-        main.setTop(bar);
-        main.setCenter(game);
-        main.setBottom(error);
-
+            main.setTop(bar);
+            main.setCenter(game);
+            main.setBottom(error);
         Scene application = new Scene(main, 600, 600);
         window.setScene(application);
         window.setTitle("Minesweeper - dangreco & ktzyskowski");
