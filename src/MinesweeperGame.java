@@ -30,6 +30,7 @@ public class MinesweeperGame
       {
         board[randRow][randCol] = new Mine(randRow,randCol);
         bombs--;
+        System.out.println(randRow + " " + randCol);
       }
     }
 
@@ -38,12 +39,14 @@ public class MinesweeperGame
     {
       for (int c = 0; c < board[r].length; c++)
       {
-        if (getNumber(r, c) > 0)
+        int num = getNumber(r, c);
+        if (num > 0)
         {
-          board[r][c] = new NumberTile(getNumber(r, c), r, c);
+          board[r][c] = new NumberTile(num, r, c);
         }
       }
     }
+
 
   }
 
@@ -58,13 +61,14 @@ public class MinesweeperGame
   {
     int number = 0;
 
-    for (int i = row - 1; i < row + 2; ++i){
-      for (int j = col - 1; j < col + 2; ++j){
-        if (i > 0 && i < board.length){
-          if (j > 0 && j < board[0].length){
-            if (i != row && j != col){
-              if (board[i][j] instanceof Mine)
-                ++number;
+    for (int r = row - 1; r <= row + 1; r++) {
+      for (int c = col - 1; c <= col + 1; c++) {
+        if (r >= 0 && c >= 0) {
+          if (r < board.length && c < board[r].length) {
+            if (!(row == r && col == c)) {
+              if (board[r][c] instanceof Mine) {
+                number++;
+              }
             }
           }
         }
@@ -138,7 +142,7 @@ public class MinesweeperGame
         // ... check for bounds
         if (startPosX > 0 && startPosX < board.length && startPosY > 0 && startPosY <board[startPosX].length)
         {
-          hashMap.put(pos, new NumberTile(startPosX, startPosY, getNumber(startPosX, startPosY)));
+          hashMap.put(pos, board[pos[0]][pos[1]]);
           for (int i = -1; i <= 1; i += 2) {
             for (int j = -1; j <= 1; j += 2) {
               return getRevealsHelper(startPosX + i, startPosY + j, hashMap);

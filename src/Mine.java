@@ -15,5 +15,6 @@ public class Mine extends Tile {
 
     @Override
     public void interact() {
+
     }
 }

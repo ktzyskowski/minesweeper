@@ -49,7 +49,7 @@ public class Tile extends StackPane {
             depressed = true;
             self.setFill(Color.GRAY);
             //HashMap<int[], Tile> map = MinesweeperScene.game.getReveals(this.row, this.col);
-//            /for ()
+            //for ()
         }
     }
 
