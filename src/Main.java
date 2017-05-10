@@ -88,6 +88,7 @@ public class Main extends Application {
 
         Scene application = new Scene(main, 600, 600);
         window.setScene(application);
+        window.setTitle("Minesweeper - dangreco & ktzyskowski");
         window.show();
     }
 
