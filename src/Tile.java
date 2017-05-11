@@ -8,8 +8,10 @@ public class Tile extends StackPane {
     private boolean clicked;
 
     public Tile() {
-        this.self = new Rectangle(20, 20, Color.WHITESMOKE);
+        this.self = new Rectangle(25, 25, Color.WHITESMOKE);
         this.self.setOnMouseClicked(event -> interact());
+        this.self.setArcHeight(6);
+        this.self.setArcWidth(6);
         this.getChildren().add(self);
     }
 
