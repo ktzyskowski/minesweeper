@@ -22,4 +22,10 @@ public class NumberTile extends Tile {
         }
     }
 
+    @Override
+    public String toString()
+    {
+        return number + " ";
+    }
+
 }
