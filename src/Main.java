@@ -19,6 +19,18 @@ public class Main extends Application {
     private TextField mineInput;
 
     private Label errormsg;
+    private GridPane game;
+
+    public void initialize() {
+        // ... clear old game && make new one
+        game.getChildren().clear();
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                Tile tile = new Tile();
+                game.add(tile, c, r);
+            }
+        }
+    }
 
     public void start() {
         try {
@@ -34,6 +46,9 @@ public class Main extends Application {
         if (inBounds(8, 40, rows) && inBounds(8, 40, columns) && inBounds(12, 100, mines)) {
             // ... start game
             errormsg.setText("");
+
+            initialize();
+
         } else {
             errormsg.setText("A number is not in the proper range");
             return;
@@ -70,8 +85,11 @@ public class Main extends Application {
         bar.getChildren().addAll(startGame, rowsLabel, rowInput, colsLabel, colInput, minesLabel, mineInput);
 
         // ... game
-        GridPane game = new GridPane();
+        game = new GridPane();
             game.setStyle("-fx-background-color: #C0C0C0;");
+            game.setAlignment(Pos.CENTER);
+            game.setHgap(1);
+            game.setVgap(1);
 
         // ... error message
         HBox error = new HBox();
@@ -91,6 +109,9 @@ public class Main extends Application {
         window.show();
     }
 
+    // ... game methods
+
+
     // ... helper methods
     private boolean inBounds(int lowerBound, int upperBound, int number) {
         if (number > upperBound || number < lowerBound) {
@@ -99,5 +120,6 @@ public class Main extends Application {
             return true;
         }
     }
+
 
 }
