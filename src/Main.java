@@ -43,7 +43,7 @@ public class Main extends Application {
         }
 
         // ... check for valid arguments
-        if (inBounds(8, 40, rows) && inBounds(8, 40, columns) && inBounds(12, 100, mines)) {
+        if (inBounds(8, 32, rows) && inBounds(8, 32, columns) && inBounds(12, 100, mines)) {
             // ... start game
             errormsg.setText("");
 
@@ -74,10 +74,10 @@ public class Main extends Application {
             Label colsLabel = new Label("Columns:");
             Label minesLabel = new Label("Mines:");
             rowInput = new TextField();
-            rowInput.setPromptText("8-40");
+            rowInput.setPromptText("8-32");
             rowInput.setMaxWidth(50);
             colInput = new TextField();
-            colInput.setPromptText("8-40");
+            colInput.setPromptText("8-32");
             colInput.setMaxWidth(50);
             mineInput = new TextField();
             mineInput.setPromptText("12-100");
