@@ -26,4 +26,10 @@ public class Tile extends StackPane {
 
     public Rectangle getSelf() { return self; }
 
+    @Override
+    public String toString()
+    {
+        return "T ";
+    }
+
 }

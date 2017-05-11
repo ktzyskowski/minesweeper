@@ -6,14 +6,55 @@ import java.util.HashMap;
 public class Minesweeper {
 
     private Tile[][] board;
-    ArrayList<Coord> reveals;
-    ArrayList<Coord> visted;
+    private int bombs;
+    private ArrayList<Coord> reveals;
+    private ArrayList<Coord> visted;
 
-    public Minesweeper(Tile[][] board)
+    /**
+     * Constructor for Minesweeper game.
+     * @param rows  Amount of rows
+     * @param cols  Amount of columns
+     * @param bombs Number of bombs to place
+     */
+    public Minesweeper(int rows, int cols, int bombs)
     {
-        this.board = board;
+        this.board = new Tile[rows][cols];
+        this.bombs = bombs;
+        this.generateBoard();
         this.reveals = new ArrayList<>();
         this.visted = new ArrayList<>();
+    }
+
+    /**
+     * Generates the game's board
+     */
+    public void generateBoard()
+    {
+        // Generate blank tiles
+        for (int i = 0; i < board.length; ++i){
+            for (int j = 0; j < board[i].length; ++j){
+                board[i][j] = new Tile();
+            }
+        }
+
+        // Generate Mine tiles
+        while (bombs > 0){
+            int r = (int)(Math.random()*board.length);
+            int c = (int)(Math.random()*board[r].length);
+            if (!(board[r][c] instanceof Mine)){
+                board[r][c] = new Mine();
+                --bombs;
+            }
+        }
+
+        // Generate Number tiles
+        for (int i = 0; i < board.length; ++i){
+            for (int j = 0; j < board[i].length; ++j){
+                if (getNumber(i,j) != 0){
+                    board[i][j] = new NumberTile(getNumber(i,j));
+                }
+            }
+        }
     }
 
     /**
@@ -70,11 +111,14 @@ public class Minesweeper {
      * Method to deduce the number of surrounding tiles.
      * @param row   The specified row of the tile
      * @param col   The specified column of the tile
-     * @return      The number of mines surrounding the tile
+     * @return      The number of mines surrounding the tile; 0 for blank or if Mine
      */
     public int getNumber(int row, int col)
     {
         int numberOfMines = 0;
+
+        if (board[row][col] instanceof Mine)
+            return 0;
 
         for (Coord c : getAdjacent(row, col)){
             if (board[c.row][c.col] instanceof Mine)
@@ -114,6 +158,20 @@ public class Minesweeper {
         if (row > -1 && row < board.length && col > -1 && col < board[row].length)
             return true;
         return false;
+    }
+
+    @Override
+    public String toString()
+    {
+        String out = "";
+        for (Tile[] sub : board){
+            for (Tile t : sub){
+                out += t;
+            }
+            out += "\n";
+        }
+
+        return out;
     }
 
 }
