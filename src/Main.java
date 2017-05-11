@@ -33,7 +33,7 @@ public class Main extends Application {
         // ... check for valid arguments
         if (inBounds(8, 40, rows) && inBounds(8, 40, columns) && inBounds(12, 100, mines)) {
             // ... start game
-
+            errormsg.setText("");
         } else {
             errormsg.setText("A number is not in the proper range");
             return;
