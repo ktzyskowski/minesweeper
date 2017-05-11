@@ -8,8 +8,8 @@ public class NumberTile extends Tile {
     public NumberTile(int number) {
         super();
         this.number = new Label(Integer.toString(number));
-        this.number.setStyle("-fx-font: 10 arial;");
-        this.number.setTextFill(Color.WHITE);
+        this.number.setStyle("-fx-font: 16 courier;");
+        this.number.setTextFill(Color.WHITESMOKE);
         this.number.setOnMouseClicked(event -> interact());
         this.getChildren().add(this.number);
     }

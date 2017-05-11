@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,6 +31,8 @@ public class Main extends Application {
                 game.add(tile, c, r);
             }
         }
+
+        // ... testing purposes
         game.add(new Mine(), 0, 0);
         game.add(new NumberTile(1), 1, 0);
     }
@@ -45,7 +48,7 @@ public class Main extends Application {
         }
 
         // ... check for valid arguments
-        if (inBounds(8, 32, rows) && inBounds(8, 32, columns) && inBounds(12, 100, mines)) {
+        if (inBounds(8, 16, rows) && inBounds(8, 16, columns) && inBounds(12, 80, mines)) {
             // ... start game
             errormsg.setText("");
 
@@ -76,13 +79,13 @@ public class Main extends Application {
             Label colsLabel = new Label("Columns:");
             Label minesLabel = new Label("Mines:");
             rowInput = new TextField();
-            rowInput.setPromptText("8-32");
+            rowInput.setPromptText("8-16");
             rowInput.setMaxWidth(50);
             colInput = new TextField();
-            colInput.setPromptText("8-32");
+            colInput.setPromptText("8-16");
             colInput.setMaxWidth(50);
             mineInput = new TextField();
-            mineInput.setPromptText("12-100");
+            mineInput.setPromptText("12-80");
             mineInput.setMaxWidth(60);
         bar.getChildren().addAll(startGame, rowsLabel, rowInput, colsLabel, colInput, minesLabel, mineInput);
 
@@ -112,9 +115,6 @@ public class Main extends Application {
         window.show();
     }
 
-    // ... game methods
-
-
     // ... helper methods
     private boolean inBounds(int lowerBound, int upperBound, int number) {
         if (number > upperBound || number < lowerBound) {
@@ -124,5 +124,13 @@ public class Main extends Application {
         }
     }
 
+    public Tile getTile(int row, int column) {
+        for (Node t : game.getChildren()) {
+            if (game.getRowIndex(t) == row && game.getColumnIndex(t) == column) {
+                return (Tile) t;
+            }
+        }
+        return null;
+    }
 
 }
