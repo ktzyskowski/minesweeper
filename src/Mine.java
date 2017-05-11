@@ -6,7 +6,7 @@ public class Mine extends Tile {
     public void interact() {
         if (!getClicked()) {
             setClicked(true);
-            this.getSelf().setFill(Color.RED);
+            this.getSelf().setFill(Color.TOMATO);
         }
     }
 

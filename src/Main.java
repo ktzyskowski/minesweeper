@@ -32,9 +32,12 @@ public class Main extends Application {
             }
         }
 
-        // ... testing purposes
+        /* ... testing purposes
         game.add(new Mine(), 0, 0);
-        game.add(new NumberTile(1), 1, 0);
+        for (int i = 1; i < 9; i++) {
+            game.add(new NumberTile(i), i, 0);
+        }
+        */
     }
 
     public void start() {
