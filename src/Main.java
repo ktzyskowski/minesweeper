@@ -30,6 +30,8 @@ public class Main extends Application {
                 game.add(tile, c, r);
             }
         }
+        game.add(new Mine(), 0, 0);
+        game.add(new NumberTile(1), 1, 0);
     }
 
     public void start() {
@@ -106,6 +108,7 @@ public class Main extends Application {
         Scene application = new Scene(main, 600, 600);
         window.setScene(application);
         window.setTitle("Minesweeper - dangreco & ktzyskowski");
+        window.setResizable(false);
         window.show();
     }
 

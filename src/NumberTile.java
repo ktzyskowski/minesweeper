@@ -8,6 +8,9 @@ public class NumberTile extends Tile {
     public NumberTile(int number) {
         super();
         this.number = new Label(Integer.toString(number));
+        this.number.setStyle("-fx-font: 10 arial;");
+        this.number.setTextFill(Color.WHITE);
+        this.number.setOnMouseClicked(event -> interact());
         this.getChildren().add(this.number);
     }
 
@@ -15,7 +18,7 @@ public class NumberTile extends Tile {
     public void interact() {
         if (!getClicked()) {
             setClicked(true);
-            this.getSelf().setFill(Color.BLUE);
+            this.getSelf().setFill(Color.SKYBLUE);
         }
     }
 
