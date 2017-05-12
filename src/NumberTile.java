@@ -15,7 +15,7 @@ public class NumberTile extends Tile {
 
         switch(number) {
             case 1:
-                color = Color.CYAN;
+                color = Color.SKYBLUE;
                 break;
             case 2:
                 color = Color.LAWNGREEN;
@@ -50,7 +50,7 @@ public class NumberTile extends Tile {
     public void interact() {
         if (!getClicked()) {
             super.interact();
-            this.number.setTextFill(color);
+            this.getSelf().setFill(color);
         }
     }
 

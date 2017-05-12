@@ -22,6 +22,9 @@ public class Main extends Application {
     private Label errormsg;
     private GridPane game;
 
+    /**
+     *  Creates and displays a new game.
+     */
     public void initialize() {
         // ... clear old game && make new one
         game.getChildren().clear();
@@ -40,7 +43,14 @@ public class Main extends Application {
         */
     }
 
+    /**
+     *  Method that is called when start button is clicked.
+     *  First checks for validity of arguments, then
+     *  calls initialize() with new params if arguments
+     *  are valid and displays error message otherwise.
+     */
     public void start() {
+        // ... get parameters to use in initialize()
         try {
             rows = Integer.parseInt(rowInput.getCharacters().toString());
             columns = Integer.parseInt(colInput.getCharacters().toString());
@@ -51,13 +61,12 @@ public class Main extends Application {
         }
 
         // ... check for valid arguments
-        if (inBounds(8, 16, rows) && inBounds(8, 16, columns) && inBounds(12, 80, mines)) {
-            // ... start game
+        if (inRange(8, 16, rows) && inRange(8, 16, columns) && inRange(12, 80, mines)) {
             errormsg.setText("");
-
+            // ... start game
             initialize();
-
         } else {
+            // ... display error
             errormsg.setText("A number is not in the proper range");
             return;
         }
@@ -119,7 +128,16 @@ public class Main extends Application {
     }
 
     // ... helper methods
-    private boolean inBounds(int lowerBound, int upperBound, int number) {
+
+    /**
+     * Checks to see if a number is within a specific range defined by
+     * [lowerBound, upperBound].
+     * @param lowerBound lower bound of the range - inclusive
+     * @param upperBound upper bound of the range - inclusive
+     * @param number number being checked
+     * @return true if in range; false if not in range
+     */
+    private boolean inRange(int lowerBound, int upperBound, int number) {
         if (number > upperBound || number < lowerBound) {
             return false;
         } else {
@@ -127,6 +145,14 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Searches the game GridPane for a tile object and returns
+     * the row & column that it appears in, or null if it does not
+     * exist.
+     * @param row row of tile being searched for
+     * @param column column of tile being searched for
+     * @return tile at pos row, column; null if tile does not exist
+     */
     public Tile getTile(int row, int column) {
         for (Node t : game.getChildren()) {
             if (game.getRowIndex(t) == row && game.getColumnIndex(t) == column) {
