@@ -13,6 +13,9 @@ public class Tile extends StackPane {
         this.self.setArcHeight(6);
         this.self.setArcWidth(6);
         this.getChildren().add(self);
+
+        // ... testing purposes
+        this.interact();
     }
 
     public void interact() {

@@ -28,10 +28,11 @@ public class Main extends Application {
     public void initialize() {
         // ... clear old game && make new one
         game.getChildren().clear();
+        Minesweeper minesweeper = new Minesweeper(rows, columns, mines);
+        Tile[][] internalBoard = minesweeper.getBoard();
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
-                Tile tile = new Tile();
-                game.add(tile, c, r);
+                game.add(internalBoard[r][c], c, r);
             }
         }
 

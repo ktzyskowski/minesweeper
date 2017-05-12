@@ -22,6 +22,10 @@ public class Minesweeper {
         this.visted = new ArrayList<>();
     }
 
+    public Tile[][] getBoard() {
+        return board;
+    }
+
     /**
      * Generates the game's board
      */
