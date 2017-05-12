@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Minesweeper {
 
@@ -22,6 +23,10 @@ public class Minesweeper {
         this.visted = new ArrayList<>();
     }
 
+    /**
+     * Returns the internal board
+     * @return retuns board used for calculations
+     */
     public Tile[][] getBoard() {
         return board;
     }

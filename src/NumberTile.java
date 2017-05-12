@@ -39,7 +39,7 @@ public class NumberTile extends Tile {
                 color = Color.SLATEGRAY;
                 break;
             default:
-                color = Color.WHITE;
+                color = Color.VIOLET;
                 break;
         }
 
@@ -49,7 +49,6 @@ public class NumberTile extends Tile {
     @Override
     public void interact() {
         if (!getClicked()) {
-            super.interact();
             this.getSelf().setFill(color);
         }
     }

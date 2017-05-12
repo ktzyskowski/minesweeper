@@ -62,7 +62,7 @@ public class Main extends Application {
         }
 
         // ... check for valid arguments
-        if (inRange(8, 16, rows) && inRange(8, 16, columns) && inRange(12, 80, mines)) {
+        if (inRange(8, 16, rows) && inRange(8, 16, columns) && inRange(12, 80, mines) && mines < rows * columns) {
             errormsg.setText("");
             // ... start game
             initialize();
