@@ -1,7 +1,4 @@
-import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Minesweeper {
 
