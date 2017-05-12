@@ -10,13 +10,12 @@ public class NumberTile extends Tile {
         super();
         this.number = new Label(Integer.toString(number));
         this.number.setStyle("-fx-font: 16 courier;");
-        this.number.setTextFill(Color.WHITESMOKE);
         this.number.setOnMouseClicked(event -> interact());
         this.getChildren().add(this.number);
 
         switch(number) {
             case 1:
-                color = Color.LIGHTSKYBLUE;
+                color = Color.CYAN;
                 break;
             case 2:
                 color = Color.LAWNGREEN;
@@ -43,13 +42,15 @@ public class NumberTile extends Tile {
                 color = Color.WHITE;
                 break;
         }
+
+        this.number.setTextFill(Color.WHITESMOKE);
     }
 
     @Override
     public void interact() {
         if (!getClicked()) {
-            setClicked(true);
-            this.getSelf().setFill(color);
+            super.interact();
+            this.number.setTextFill(color);
         }
     }
 
