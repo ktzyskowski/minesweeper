@@ -15,7 +15,7 @@ public class Tile extends StackPane {
         this.getChildren().add(self);
 
         // ... testing purposes
-        this.interact();
+        //this.interact();
     }
 
     public void interact() {
