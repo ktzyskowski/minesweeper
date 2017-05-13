@@ -22,14 +22,23 @@ public class Main extends Application {
     private Label errormsg;
     private GridPane game;
 
+    public static Minesweeper minesweeperGame;
+
+
+    public static Minesweeper getMinesweeperGame()
+    {
+        return minesweeperGame;
+    }
+
+
     /**
      *  Creates and displays a new game.
      */
     public void initialize() {
         // ... clear old game && make new one
         game.getChildren().clear();
-        Minesweeper minesweeper = new Minesweeper(rows, columns, mines);
-        Tile[][] internalBoard = minesweeper.getBoard();
+        minesweeperGame = new Minesweeper(rows, columns, mines);
+        Tile[][] internalBoard = minesweeperGame.getBoard();
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
                 game.add(internalBoard[r][c], c, r);
