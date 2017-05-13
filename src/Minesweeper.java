@@ -102,12 +102,15 @@ public class Minesweeper {
      */
     public void floodReveals(int row, int col)
     {
+        if (board[row][col] instanceof NumberTile){
+            reveals.add(board[row][col]);
+            return;
+        }
         for (Tile t : getAdjacent(row, col)){
             if (!visited(t) && !(t instanceof Mine)){
-                if (!(board[row][col] instanceof NumberTile) && !(t instanceof NumberTile)) {
                     reveals.add(t);
                     floodReveals(quickLocations.get(t).row, quickLocations.get(t).col);
-                }
+
             }
         }
     }
