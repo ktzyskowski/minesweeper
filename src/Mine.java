@@ -5,9 +5,16 @@ public class Mine extends Tile {
     @Override
     public void interact() {
         if (!getClicked()) {
-            setClicked(true);
-            this.getSelf().setFill(Color.TOMATO);
+            show();
+            reveal();
         }
+    }
+
+    @Override
+    public void show()
+    {
+        setClicked(true);
+        this.getSelf().setFill(Color.TOMATO);
     }
 
     @Override
