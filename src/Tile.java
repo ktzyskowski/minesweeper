@@ -20,8 +20,20 @@ public class Tile extends StackPane {
 
     public void interact() {
         if (!getClicked()) {
-            setClicked(true);
-            this.getSelf().setFill(Color.LIGHTGRAY);
+            show();
+            reveal();
+        }
+    }
+
+    public void show() {
+        setClicked(true);
+        this.getSelf().setFill(Color.LIGHTGRAY);
+    }
+
+    public void reveal()
+    {
+        for (Tile t : Main.getMinesweeperGame().getReveals(this)){
+            t.show();
         }
     }
 
