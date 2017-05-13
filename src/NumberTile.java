@@ -49,8 +49,15 @@ public class NumberTile extends Tile {
     @Override
     public void interact() {
         if (!getClicked()) {
-            this.getSelf().setFill(color);
+            show();
+            reveal();
         }
+    }
+
+    @Override
+    public void show(){
+        setClicked(true);
+        this.getSelf().setFill(color);
     }
 
     @Override
