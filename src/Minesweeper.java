@@ -5,8 +5,9 @@ public class Minesweeper {
 
     private Tile[][] board;
     private int bombs;
-    private ArrayList<Coord> reveals;
-    private ArrayList<Coord> visted;
+    private ArrayList<Tile> reveals;
+    private ArrayList<Tile> visted;
+    private BiMap<Tile, Coord> quickLocations;
 
     /**
      * Constructor for Minesweeper game.
@@ -17,10 +18,11 @@ public class Minesweeper {
     public Minesweeper(int rows, int cols, int bombs)
     {
         this.board = new Tile[rows][cols];
-        this.bombs = bombs;
-        this.generateBoard();
+        quickLocations = new BiMap<Tile, Coord>();
         this.reveals = new ArrayList<>();
         this.visted = new ArrayList<>();
+        this.bombs = bombs;
+        this.generateBoard();
     }
 
     /**
@@ -39,7 +41,10 @@ public class Minesweeper {
         // Generate blank tiles
         for (int i = 0; i < board.length; ++i){
             for (int j = 0; j < board[i].length; ++j){
-                board[i][j] = new Tile();
+                Tile t = new Tile();
+                Coord coord = new Coord(i, j);
+                board[i][j] = t;
+                quickLocations.put(t, coord);
             }
         }
 
@@ -48,7 +53,10 @@ public class Minesweeper {
             int r = (int)(Math.random()*board.length);
             int c = (int)(Math.random()*board[r].length);
             if (!(board[r][c] instanceof Mine)){
-                board[r][c] = new Mine();
+                Mine m = new Mine();
+                Coord coord = new Coord(r, c);
+                board[r][c] = m;
+                quickLocations.put(m, coord);
                 --bombs;
             }
         }
@@ -57,26 +65,30 @@ public class Minesweeper {
         for (int i = 0; i < board.length; ++i){
             for (int j = 0; j < board[i].length; ++j){
                 if (getNumber(i,j) != 0){
-                    board[i][j] = new NumberTile(getNumber(i,j));
+                    NumberTile n = new NumberTile(getNumber(i,j));
+                    Coord coord = new Coord(i, j);
+                    board[i][j] = n;
+                    quickLocations.put(n, coord);
                 }
             }
         }
     }
 
     /**
-     * Method to get a list of tiles to reveal on click on origin.
-     * @param row
-     * @param col
-     * @return
+     * Method to get a list of Tiles to reveal on click on origin.
+     * @param t Specified root Tile
+     * @return Arraylist containing Tiles to reveal
      */
-    public ArrayList<Coord> getReveals(int row, int col)
+    public ArrayList<Tile> getReveals(Tile t)
     {
+        int row = quickLocations.get(t).row;
+        int col = quickLocations.get(t).col;
         reveals = new ArrayList<>();
         visted = new ArrayList<>();
         if (board[row][col] instanceof Mine) {
-            reveals.add(new Coord(row, col));
+            reveals.add(board[row][col]);
         } else {
-            reveals.add(new Coord(row, col));
+            reveals.add(board[row][col]);
             floodReveals(row, col);
         }
 
@@ -90,10 +102,12 @@ public class Minesweeper {
      */
     public void floodReveals(int row, int col)
     {
-        for (Coord c : getAdjacent(row, col)){
-            if (!visited(c) && !(board[c.row][c.col] instanceof Mine)){
-                reveals.add(c);
-                floodReveals(c.row, c.col);
+        for (Tile t : getAdjacent(row, col)){
+            if (!visited(t) && !(t instanceof Mine)){
+                if (!(board[row][col] instanceof NumberTile) && !(t instanceof NumberTile)) {
+                    reveals.add(t);
+                    floodReveals(quickLocations.get(t).row, quickLocations.get(t).col);
+                }
             }
         }
     }
@@ -104,13 +118,9 @@ public class Minesweeper {
      * @param c The coordinate to determine if visited
      * @return  True if it has been visited, false otherwise
      */
-    public boolean visited(Coord c)
+    public boolean visited(Tile c)
     {
-        for (Coord x : reveals){
-            if (c.equals(x))
-                return true;
-        }
-        return false;
+        return reveals.contains(c);
     }
 
     /**
@@ -126,27 +136,28 @@ public class Minesweeper {
         if (board[row][col] instanceof Mine)
             return 0;
 
-        for (Coord c : getAdjacent(row, col)){
-            if (board[c.row][c.col] instanceof Mine)
+        for (Tile t : getAdjacent(row, col)){
+            if (t instanceof Mine)
                 ++numberOfMines;
         }
 
         return numberOfMines;
     }
 
+
     /**
      * Method to get the coordinates of adjacent tiles.
      * @param row   The specified row of the tile
      * @param col   The specified column of the tile
-     * @return      ArrayList containing Coord objects of locations of valid adjacent tiles
+     * @return      ArrayList containing Tile objects of locations of valid adjacent tiles
      */
-    public ArrayList<Coord> getAdjacent(int row, int col)
+    public ArrayList<Tile> getAdjacent(int row, int col)
     {
-        ArrayList<Coord> toReturn = new ArrayList<>();
+        ArrayList<Tile> toReturn = new ArrayList<>();
         for (int i = row - 1; i < row + 2; ++i){
             for (int j = col - 1; j < col + 2; ++j){
                 if (isInBounds(i, j)){
-                    toReturn.add(new Coord(i, j));
+                    toReturn.add(board[i][j]);
                 }
             }
         }
