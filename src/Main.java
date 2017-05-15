@@ -44,13 +44,6 @@ public class Main extends Application {
                 game.add(internalBoard[r][c], c, r);
             }
         }
-
-        /* ... testing purposes
-        game.add(new Mine(), 0, 0);
-        for (int i = 1; i < 9; i++) {
-            game.add(new NumberTile(i), i, 0);
-        }
-        */
     }
 
     /**
