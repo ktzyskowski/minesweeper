@@ -53,6 +53,7 @@ public class NumberTile extends Tile {
         setClicked(true);
         this.number.setText(Integer.toString(num));
         this.getSelf().setFill(color);
+        this.getSelf().setStroke(color);
     }
 
     @Override
