@@ -10,7 +10,7 @@ public class Tile extends StackPane {
     private boolean flagged;
 
     public Tile() {
-        this.self = new Rectangle(25, 25, Color.LIGHTSLATEGREY);
+        this.self = new Rectangle(21, 21, Color.LIGHTSLATEGREY);
         this.self.setOnMouseClicked(event ->
         {
             MouseButton button = event.getButton();
@@ -25,6 +25,8 @@ public class Tile extends StackPane {
         this.self.setArcWidth(6);
         this.getChildren().add(self);
         this.flagged = false;
+        this.self.setStrokeWidth(2.0);
+        this.self.setStroke(Color.LIGHTSLATEGREY);
 
         // ... testing purposes
         //this.interact();
@@ -34,9 +36,9 @@ public class Tile extends StackPane {
         if (!getClicked()) {
             setFlagged(!getFlagged());
             if (getFlagged()) {
-                this.self.setFill(Color.VIOLET);
+                this.self.setStroke(Color.VIOLET);
             } else {
-                this.self.setFill(Color.LIGHTSLATEGREY);
+                this.self.setStroke(Color.LIGHTSLATEGREY);
             }
         }
     }
@@ -51,6 +53,7 @@ public class Tile extends StackPane {
     public void show() {
         setClicked(true);
         this.getSelf().setFill(Color.LIGHTGRAY);
+        this.getSelf().setStroke(Color.LIGHTGRAY);
     }
 
     public void reveal()
