@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -114,7 +115,7 @@ public class Main extends Application {
 
         // ... game
         game = new GridPane();
-            game.setStyle("-fx-background-color: #C0C0C0;");
+            game.setStyle("-fx-background-color: transparent;");
             game.setAlignment(Pos.CENTER);
             game.setHgap(1);
             game.setVgap(1);

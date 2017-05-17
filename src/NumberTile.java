@@ -4,13 +4,15 @@ import javafx.scene.paint.Color;
 public class NumberTile extends Tile {
 
     private Label number;
+    private int num;
     private Color color;
 
     public NumberTile(int number) {
         super();
-        this.number = new Label(Integer.toString(number));
+        this.num = number;
+        this.number = new Label();
         this.number.setStyle("-fx-font: 16 courier;");
-        this.number.setOnMouseClicked(event -> interact());
+        //this.number.setOnMouseClicked(event -> interact());
         this.getChildren().add(this.number);
 
         switch(number) {
@@ -47,16 +49,9 @@ public class NumberTile extends Tile {
     }
 
     @Override
-    public void interact() {
-        if (!getClicked()) {
-            show();
-            reveal();
-        }
-    }
-
-    @Override
     public void show(){
         setClicked(true);
+        this.number.setText(Integer.toString(num));
         this.getSelf().setFill(color);
     }
 
