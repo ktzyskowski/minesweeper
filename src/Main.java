@@ -1,11 +1,14 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -30,6 +33,11 @@ public class Main extends Application {
     {
         return minesweeperGame;
     }
+
+
+    private double originX, originY, upX, upY;
+    private double dOriginX, dOriginY, dUpX, dUpY;
+    private boolean dragOver;
 
 
     /**
@@ -130,6 +138,108 @@ public class Main extends Application {
         window.setTitle("Minesweeper - dangreco & ktzyskowski");
         window.setResizable(false);
         window.show();
+
+        game.setOnScroll(scrollEvent -> zoom(scrollEvent.getDeltaY()));
+
+
+        /*
+        game.setOnMousePressed(mouseEvent -> {
+            originX = game.getLayoutX();
+            originY = game.getLayoutY();
+            upX = mouseEvent.getX();
+            upY = mouseEvent.getY();
+            application.setCursor(Cursor.CLOSED_HAND);
+        });
+
+        game.setOnMouseReleased(mouseEvent -> application.setCursor(Cursor.DEFAULT));
+
+        game.setOnMouseDragged(mouseDragEvent -> {
+            if (dragOver) {
+                dOriginX = mouseDragEvent.getX();
+                dOriginY = mouseDragEvent.getY();
+                dragOver = false;
+            }
+
+            game.setTranslateX(upX - mouseDragEvent.getX() + game.getTranslateX());
+            game.setTranslateY(upY - mouseDragEvent.getY() + game.getTranslateY());
+        });
+
+        game.setOnMouseDragReleased(mouseDragEvent -> {
+
+            dUpX = mouseDragEvent.getX();
+            dUpY = mouseDragEvent.getY();
+            System.out.println("D RES : " + dUpX + " " + dUpY);
+            dragOver = true;
+
+        });
+
+        */
+
+
+    }
+
+    public void zoom(double delta)
+    {
+        double scale = game.getScaleX() + delta / 40.0 * .2;
+        if (delta < 0){
+            if (game.getScaleX() > 0.3){
+                game.setScaleX(scale);
+                game.setScaleY(scale);
+            }
+        } else {
+            if (game.getScaleY() < 10.0){
+                game.setScaleX(scale);
+                game.setScaleY(scale);
+            }
+        }
+     }
+
+
+     /*
+
+       game.setOnMousePressed(mouseEvent -> {
+            originX = game.getLayoutX();
+            originY = game.getLayoutY();
+            upX = mouseEvent.getX();
+            upY = mouseEvent.getY();
+            application.setCursor(Cursor.CLOSED_HAND);
+        });
+
+        game.setOnMouseReleased(mouseEvent -> mainScene.setCursor(Cursor.DEFAULT));
+
+        game.setOnMouseDragged(mouseDragEvent -> {
+            if (dragOver) {
+                dOriginX = mouseDragEvent.getX();
+                dOriginY = mouseDragEvent.getY();
+                dragOver = false;
+            }
+
+            double transformedX = mouseOrigin.x - (upX - mouseDragEvent.getX());
+            double transformedY = mouseOrigin.y - (upY - mouseDragEvent.getY());
+            game.setLayoutX(transformedX);
+            game.setLayoutY(transformedY);
+        });
+
+        game.setOnMouseDragReleased(mouseDragEvent -> {
+
+            dUpX = mouseDragEvent.getX();
+            dUpY = mouseDragEvent.getY();
+            dragOver = true;
+
+        });
+
+
+
+      */
+
+    public void drag(MouseEvent e)
+    {
+        System.out.println("dragged");
+    }
+
+    public void startDrag()
+    {
+
     }
 
     // ... helper methods
