@@ -111,6 +111,7 @@ public class Main extends Application {
             game.setAlignment(Pos.CENTER);
             game.setHgap(1);
             game.setVgap(1);
+            game.setTranslateX(30);
 
         // ... error message
         HBox error = new HBox();
@@ -124,7 +125,7 @@ public class Main extends Application {
             main.setTop(bar);
             main.setCenter(game);
             main.setBottom(error);
-        Scene application = new Scene(main, 600, 600);
+        Scene application = new Scene(main, 800, 600);
         window.setScene(application);
         window.setTitle("Minesweeper - dangreco & ktzyskowski");
         window.setResizable(false);
