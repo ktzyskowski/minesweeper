@@ -73,7 +73,7 @@ public class Main extends Application {
         }
 
         // ... check for valid arguments
-        if (inRange(8, 16, rows) && inRange(8, 16, columns) && inRange(12, 80, mines) && mines < rows * columns) {
+        if (inRange(8, 20, rows) && inRange(8, 20, columns) && inRange(12, 100, mines) && mines < rows * columns) {
             errormsg.setText("");
             // ... start game
             initialize();
@@ -103,13 +103,13 @@ public class Main extends Application {
             Label colsLabel = new Label("Columns:");
             Label minesLabel = new Label("Mines:");
             rowInput = new TextField();
-            rowInput.setPromptText("8-16");
+            rowInput.setPromptText("8-20");
             rowInput.setMaxWidth(50);
             colInput = new TextField();
-            colInput.setPromptText("8-16");
+            colInput.setPromptText("8-20");
             colInput.setMaxWidth(50);
             mineInput = new TextField();
-            mineInput.setPromptText("12-80");
+            mineInput.setPromptText("12-100");
             mineInput.setMaxWidth(60);
         bar.getChildren().addAll(startGame, rowsLabel, rowInput, colsLabel, colInput, minesLabel, mineInput);
 
