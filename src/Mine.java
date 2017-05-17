@@ -7,6 +7,7 @@ public class Mine extends Tile {
     {
         setClicked(true);
         this.getSelf().setFill(Color.TOMATO);
+        this.getSelf().setStroke(Color.TOMATO);
     }
 
     @Override
