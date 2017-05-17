@@ -1,3 +1,4 @@
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -6,20 +7,42 @@ public class Tile extends StackPane {
 
     private Rectangle self;
     private boolean clicked;
+    private boolean flagged;
 
     public Tile() {
-        this.self = new Rectangle(25, 25, Color.WHITESMOKE);
-        this.self.setOnMouseClicked(event -> interact());
+        this.self = new Rectangle(25, 25, Color.LIGHTSLATEGREY);
+        this.self.setOnMouseClicked(event ->
+        {
+            MouseButton button = event.getButton();
+            if (button.equals(MouseButton.PRIMARY)) {
+                interact();
+            }
+            else if (button.equals(MouseButton.SECONDARY)) {
+                flag();
+            }
+        });
         this.self.setArcHeight(6);
         this.self.setArcWidth(6);
         this.getChildren().add(self);
+        this.flagged = false;
 
         // ... testing purposes
         //this.interact();
     }
 
-    public void interact() {
+    public void flag() {
         if (!getClicked()) {
+            setFlagged(!getFlagged());
+            if (getFlagged()) {
+                this.self.setFill(Color.VIOLET);
+            } else {
+                this.self.setFill(Color.WHITE);
+            }
+        }
+    }
+
+    public void interact() {
+        if (!getClicked() && !getFlagged()) {
             show();
             reveal();
         }
@@ -40,6 +63,9 @@ public class Tile extends StackPane {
     // ... getters / setters
     public boolean getClicked() { return clicked; }
     public void setClicked(boolean click) { this.clicked = click; }
+
+    public boolean getFlagged() { return flagged; }
+    public void setFlagged(boolean flag) { this.flagged = flag; }
 
     public Rectangle getSelf() { return self; }
 
