@@ -36,7 +36,7 @@ public class Tile extends StackPane {
             if (getFlagged()) {
                 this.self.setFill(Color.VIOLET);
             } else {
-                this.self.setFill(Color.WHITE);
+                this.self.setFill(Color.LIGHTSLATEGREY);
             }
         }
     }
