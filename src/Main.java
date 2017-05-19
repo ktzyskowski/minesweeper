@@ -51,8 +51,19 @@ public class Main extends Application {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
                 game.add(internalBoard[r][c], c, r);
+                if (internalBoard[r][c] instanceof Mine) {
+                    internalBoard[r][c].setOnMouseClicked(event -> defeat());
+                }
             }
         }
+    }
+
+    /**
+     * Method that is called when a mine is clicked by
+     * user. Ends the game.
+     */
+    public void defeat() {
+        System.out.println("defeat");
     }
 
     /**
@@ -119,7 +130,6 @@ public class Main extends Application {
             game.setAlignment(Pos.CENTER);
             game.setHgap(1);
             game.setVgap(1);
-            game.setTranslateX(30);
 
         // ... error message
         HBox error = new HBox();
@@ -130,9 +140,9 @@ public class Main extends Application {
 
         // ... linking everything together
         BorderPane main = new BorderPane();
-            main.setTop(bar);
             main.setCenter(game);
             main.setBottom(error);
+            main.setTop(bar);
         Scene application = new Scene(main, 800, 600);
         window.setScene(application);
         window.setTitle("Minesweeper - dangreco & ktzyskowski");
