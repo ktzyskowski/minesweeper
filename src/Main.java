@@ -35,9 +35,9 @@ public class Main extends Application {
     }
 
 
-    private double originX, originY, upX, upY;
-    private double dOriginX, dOriginY, dUpX, dUpY;
-    private boolean dragOver;
+    private double originX, originY, resultX, resultY;
+
+    public static boolean dragOver;
 
 
     /**
@@ -142,39 +142,27 @@ public class Main extends Application {
         game.setOnScroll(scrollEvent -> zoom(scrollEvent.getDeltaY()));
 
 
-        /*
+
+        
         game.setOnMousePressed(mouseEvent -> {
-            originX = game.getLayoutX();
-            originY = game.getLayoutY();
-            upX = mouseEvent.getX();
-            upY = mouseEvent.getY();
+            originX = mouseEvent.getX();
+            originY = mouseEvent.getY();
             application.setCursor(Cursor.CLOSED_HAND);
         });
+        
+
 
         game.setOnMouseReleased(mouseEvent -> application.setCursor(Cursor.DEFAULT));
 
         game.setOnMouseDragged(mouseDragEvent -> {
-            if (dragOver) {
-                dOriginX = mouseDragEvent.getX();
-                dOriginY = mouseDragEvent.getY();
-                dragOver = false;
-            }
-
-            game.setTranslateX(upX - mouseDragEvent.getX() + game.getTranslateX());
-            game.setTranslateY(upY - mouseDragEvent.getY() + game.getTranslateY());
+            resultX = mouseDragEvent.getX();
+            resultY = mouseDragEvent.getY();
+            game.setTranslateX(game.getTranslateX() + (resultX - originX));
+            game.setTranslateY(game.getTranslateY() + (resultY - originY));
+            dragOver = false;
         });
 
-        game.setOnMouseDragReleased(mouseDragEvent -> {
-
-            dUpX = mouseDragEvent.getX();
-            dUpY = mouseDragEvent.getY();
-            System.out.println("D RES : " + dUpX + " " + dUpY);
-            dragOver = true;
-
-        });
-
-        */
-
+        game.setOnMouseDragReleased(mouseDragEvent -> dragOver = true);
 
     }
 
