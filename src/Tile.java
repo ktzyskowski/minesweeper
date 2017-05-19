@@ -15,7 +15,8 @@ public class Tile extends StackPane {
         {
             MouseButton button = event.getButton();
             if (button.equals(MouseButton.PRIMARY)) {
-                interact();
+                if (!Main.dragOver)
+                    interact();
             }
             else if (button.equals(MouseButton.SECONDARY)) {
                 flag();
