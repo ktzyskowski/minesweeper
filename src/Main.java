@@ -105,6 +105,7 @@ public class Main extends Application {
     public void start(Stage window) {
         // ... bar
         HBox bar = new HBox();
+            bar.setStyle("-fx-background-color: #CFD8DC;");
             bar.setPadding(new Insets(10, 10, 10, 10));
             bar.setSpacing(10);
             bar.setAlignment(Pos.CENTER);
