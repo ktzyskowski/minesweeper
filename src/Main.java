@@ -7,10 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -38,6 +42,9 @@ public class Main extends Application {
     private double originX, originY, resultX, resultY;
 
     public static boolean dragOver;
+    public static final Background test = new Background(new BackgroundFill(Color.WHITE, null, null));
+    private static final double BLUR_AMOUNT = 10;
+
 
 
     /**
@@ -104,8 +111,10 @@ public class Main extends Application {
     @Override
     public void start(Stage window) {
         // ... bar
+        StackPane barStack = new StackPane();
+        Rectangle x = new Rectangle(800, 60, new Color(.06,.34,1,.75));
         HBox bar = new HBox();
-            bar.setStyle("-fx-background-color: #CFD8DC;");
+            //bar.setStyle("-fx-background-color: #CFD8DC;");
             bar.setPadding(new Insets(10, 10, 10, 10));
             bar.setSpacing(10);
             bar.setAlignment(Pos.CENTER);
@@ -124,7 +133,7 @@ public class Main extends Application {
             mineInput.setPromptText("12-100");
             mineInput.setMaxWidth(60);
         bar.getChildren().addAll(startGame, rowsLabel, rowInput, colsLabel, colInput, minesLabel, mineInput);
-
+        barStack.getChildren().addAll(x, bar);
         // ... game
         game = new GridPane();
             game.setStyle("-fx-background-color: transparent;");
@@ -143,7 +152,7 @@ public class Main extends Application {
         BorderPane main = new BorderPane();
             main.setCenter(game);
             main.setBottom(error);
-            main.setTop(bar);
+            main.setTop(barStack);
         Scene application = new Scene(main, 800, 600);
         window.setScene(application);
         window.setTitle("Minesweeper - dangreco & ktzyskowski");
@@ -151,7 +160,6 @@ public class Main extends Application {
         window.show();
 
         game.setOnScroll(scrollEvent -> zoom(scrollEvent.getDeltaY()));
-
 
 
         
