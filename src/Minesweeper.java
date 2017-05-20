@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * Class to implement a Minesweeper game
+ */
 public class Minesweeper {
 
     private Tile[][] board;
@@ -81,8 +83,8 @@ public class Minesweeper {
      */
     public ArrayList<Tile> getReveals(Tile t)
     {
-        int row = quickLocations.get(t).row;
-        int col = quickLocations.get(t).col;
+        int row = (int)quickLocations.get(t).x;
+        int col = (int)quickLocations.get(t).y;
         reveals = new ArrayList<>();
         visted = new ArrayList<>();
         if (board[row][col] instanceof Mine) {
@@ -109,7 +111,7 @@ public class Minesweeper {
         for (Tile t : getAdjacent(row, col)){
             if (!visited(t) && !(t instanceof Mine)){
                     reveals.add(t);
-                    floodReveals(quickLocations.get(t).row, quickLocations.get(t).col);
+                    floodReveals((int)quickLocations.get(t).x, (int)quickLocations.get(t).y);
 
             }
         }

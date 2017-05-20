@@ -3,6 +3,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Class to implement a Tile
+ */
 public class Tile extends StackPane {
 
     private Rectangle self;
@@ -29,10 +32,11 @@ public class Tile extends StackPane {
         this.self.setStrokeWidth(2.0);
         this.self.setStroke(Color.LIGHTSLATEGREY);
 
-        // ... testing purposes
-        //this.interact();
     }
 
+    /**
+     * Method to toggle the "flagging" of a Tile
+     */
     public void flag() {
         if (!getClicked()) {
             setFlagged(!getFlagged());
@@ -44,6 +48,9 @@ public class Tile extends StackPane {
         }
     }
 
+    /**
+     * Method to handle left mouse click on Tile
+     */
     public void interact() {
         if (!getClicked() && !getFlagged()) {
             show();
@@ -51,12 +58,18 @@ public class Tile extends StackPane {
         }
     }
 
+    /**
+     * Method to show what's underneath
+     */
     public void show() {
         setClicked(true);
         this.getSelf().setFill(Color.LIGHTGRAY);
         this.getSelf().setStroke(Color.LIGHTGRAY);
     }
 
+    /**
+     * Method to go about revealing calculated Tiles
+     */
     public void reveal()
     {
         for (Tile t : Main.getMinesweeperGame().getReveals(this)){
@@ -64,7 +77,7 @@ public class Tile extends StackPane {
         }
     }
 
-    // ... getters / setters
+    // Getters / setters
     public boolean getClicked() { return clicked; }
     public void setClicked(boolean click) { this.clicked = click; }
 

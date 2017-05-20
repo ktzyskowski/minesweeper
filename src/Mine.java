@@ -1,5 +1,8 @@
 import javafx.scene.paint.Color;
 
+/**
+ * Class to implement a Mine tile
+ */
 public class Mine extends Tile {
 
     @Override

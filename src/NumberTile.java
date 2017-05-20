@@ -1,6 +1,9 @@
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
+/**
+ * Class to implement a NumberTile tile
+ */
 public class NumberTile extends Tile {
 
     private Label number;
@@ -12,9 +15,9 @@ public class NumberTile extends Tile {
         this.num = number;
         this.number = new Label();
         this.number.setStyle("-fx-font: 16 courier;");
-        //this.number.setOnMouseClicked(event -> interact());
         this.getChildren().add(this.number);
 
+        // Switch color based on its value
         switch(number) {
             case 1:
                 color = Color.SKYBLUE;

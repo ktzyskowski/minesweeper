@@ -1,18 +1,24 @@
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * Class to implement a Bi-direction map
+ */
 public class BiMap<K, V> extends HashMap<K, V> {
 
-
+    /**
+     * Method to return inverse map
+     * @return Inverse BiMap
+     */
     public BiMap<V, K> inverse()
     {
         Set<K> keys = this.keySet();
-        BiMap<V, K> inversed = new BiMap<V, K>();
+        BiMap<V, K> inverse = new BiMap<V, K>();
 
         for (K key : keys)
-            inversed.put(this.get(key), key);
+            inverse.put(this.get(key), key);
 
-        return inversed;
+        return inverse;
 
     }
 
