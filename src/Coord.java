@@ -1,16 +1,19 @@
+/**
+ * Class to implement a Coordinate object
+ */
 public class Coord {
 
-    public int row, col;
+    public double x, y;
 
-    public Coord(int row, int col)
+    public Coord(double row, double col)
     {
-        this.row = row;
-        this.col = col;
+        this.x = row;
+        this.y = col;
     }
 
     public boolean equals(Coord other)
     {
-        return (this.row == other.row && this.col == other.col);
+        return (this.x == other.x && this.y == other.y);
     }
 
 }
