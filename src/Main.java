@@ -29,7 +29,7 @@ public class Main extends Application {
     // Instance variables
 
     private int rows, columns, mines;
-    private double originX, originY, resultX, resultY;
+    private Coord origin, result;
 
     private Stage window;
     private TextField rowInput, colInput, mineInput;
@@ -60,6 +60,8 @@ public class Main extends Application {
     public void start(Stage window)
     {
         this.window = window;
+        origin = new Coord(0.0,0.0);
+        result = new Coord(0.0,0.0);
 
         // Creating + adding GUI nodes to stage
         createBar();
@@ -262,10 +264,10 @@ public class Main extends Application {
      */
     public void mouseDragged(MouseEvent e)
     {
-        resultX = e.getX();
-        resultY = e.getY();
-        game.setTranslateX(game.getTranslateX() + (resultX - originX));
-        game.setTranslateY(game.getTranslateY() + (resultY - originY));
+        result.x = e.getX();
+        result.y = e.getY();
+        game.setTranslateX(game.getTranslateX() + (result.x - origin.x));
+        game.setTranslateY(game.getTranslateY() + (result.y - origin.y));
         dragOver = false;
     }
 
@@ -276,8 +278,8 @@ public class Main extends Application {
      */
     public void mousePressed(MouseEvent e)
     {
-        originX = e.getX();
-        originY = e.getY();
+        origin.x = e.getX();
+        origin.y = e.getY();
         application.setCursor(Cursor.CLOSED_HAND);
     }
 
