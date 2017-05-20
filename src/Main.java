@@ -11,6 +11,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -19,42 +20,87 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private int rows;
-    private int columns;
-    private int mines;
+    // Static variables
 
-    private TextField rowInput;
-    private TextField colInput;
-    private TextField mineInput;
-
-    private Label errormsg;
-    private GridPane game;
+    public static boolean dragOver;
 
     public static Minesweeper minesweeperGame;
 
+    // Instance variables
 
-    public static Minesweeper getMinesweeperGame()
+    private int rows, columns, mines;
+    private double originX, originY, resultX, resultY;
+
+    private Stage window;
+    private TextField rowInput, colInput, mineInput;
+    private Label errormsg, rowsLabel, colsLabel, minesLabel;
+    private GridPane game;
+    private Scene application;
+    private StackPane barStack;
+    private Rectangle barBackground;
+    private HBox bar, error;
+    private Button startGame;
+    private BorderPane mainPane;
+
+
+    /**
+     * Main launch of application
+     * @param args Specified arguments
+     */
+    public static void main(String[] args)
     {
-        return minesweeperGame;
+        launch(args);
+    }
+
+    /**
+     * Method to start the application
+     * @param window The primary Stage
+     */
+    @Override
+    public void start(Stage window)
+    {
+        this.window = window;
+
+        // Creating + adding GUI nodes to stage
+        createBar();
+        createGame();
+        createErrorMessageArea();
+        linkEverythingTogether();
+
+        // Handling scrolling on GridPane
+        game.setOnScroll(scrollEvent -> zoom(scrollEvent.getDeltaY()));
+
+        // Handling click on GridPane
+        game.setOnMousePressed(mouseEvent -> mousePressed(mouseEvent));
+
+        // Handling mouse release on GridPane
+        game.setOnMouseReleased(mouseEvent -> application.setCursor(Cursor.DEFAULT));
+
+        // Handling mouse drag on GridPane
+        game.setOnMouseDragged(mouseDragEvent -> mouseDragged(mouseDragEvent));
+
+        // Handling end of mouse drag on GridPane
+        game.setOnMouseDragReleased(mouseDragEvent -> dragOver = true);
     }
 
 
-    private double originX, originY, resultX, resultY;
 
-    public static boolean dragOver;
-    public static final Background test = new Background(new BackgroundFill(Color.WHITE, null, null));
-    private static final double BLUR_AMOUNT = 10;
-
+    /*      -------------------------
+            --- IMPORTANT METHODS ---
+            -------------------------
+    */
 
 
     /**
      *  Creates and displays a new game.
      */
-    public void initialize() {
-        // ... clear old game && make new one
+    public void initialize()
+    {
+        // Clear old game & make new one
         game.getChildren().clear();
         minesweeperGame = new Minesweeper(rows, columns, mines);
         Tile[][] internalBoard = minesweeperGame.getBoard();
+        // Populates game from internalBoard
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
                 game.add(internalBoard[r][c], c, r);
@@ -69,7 +115,8 @@ public class Main extends Application {
      * Method that is called when a mine is clicked by
      * user. Ends the game.
      */
-    public void defeat() {
+    public void defeat()
+    {
         System.out.println("defeat");
     }
 
@@ -79,8 +126,9 @@ public class Main extends Application {
      *  calls initialize() with new params if arguments
      *  are valid and displays error message otherwise.
      */
-    public void start() {
-        // ... get parameters to use in initialize()
+    public void start()
+    {
+        // Get parameters to use in initialize()
         try {
             rows = Integer.parseInt(rowInput.getCharacters().toString());
             columns = Integer.parseInt(colInput.getCharacters().toString());
@@ -90,13 +138,13 @@ public class Main extends Application {
             return;
         }
 
-        // ... check for valid arguments
+        // Check for valid arguments
         if (inRange(8, 20, rows) && inRange(8, 20, columns) && inRange(12, 100, mines) && mines < rows * columns) {
             errormsg.setText("");
-            // ... start game
+            // Start game
             initialize();
         } else {
-            // ... display error
+            // Display error
             errormsg.setText("A number is not in the proper range");
             return;
         }
@@ -104,162 +152,169 @@ public class Main extends Application {
         System.out.println(rows + " " + columns + " " + mines);
     }
 
-    public static void main(String [] args) {
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage window) {
-        // ... bar
-        StackPane barStack = new StackPane();
-        Rectangle x = new Rectangle(800, 60, new Color(.06,.34,1,.75));
-        HBox bar = new HBox();
-            //bar.setStyle("-fx-background-color: #CFD8DC;");
-            bar.setPadding(new Insets(10, 10, 10, 10));
-            bar.setSpacing(10);
-            bar.setAlignment(Pos.CENTER);
-            Button startGame = new Button("Start");
+    /*      ------------------------------
+            --- HELPER / OTHER METHODS ---
+            ------------------------------
+    */
+
+
+    /**
+     * Helper method to create main top bar (HBox)
+     */
+    public void createBar()
+    {
+        // Initialize main StackPane
+        barStack = new StackPane();
+
+        // Initialize the background to the bar
+        barBackground = new Rectangle(800, 60, new Color(.06, .34, 1, .75));
+
+        // Initialize + style the bar
+        bar = new HBox();
+        bar.setPadding(new Insets(10, 10, 10, 10));
+        bar.setSpacing(10);
+        bar.setAlignment(Pos.CENTER);
+
+        // Creating / styling fields
+
+            // Start game button
+            startGame = new Button("Start");
             startGame.setOnAction(event -> start());
-            Label rowsLabel = new Label("Rows:");
-            Label colsLabel = new Label("Columns:");
-            Label minesLabel = new Label("Mines:");
+
+            // Labels
+            rowsLabel = new Label("Rows:");
+            colsLabel = new Label("Columns:");
+            minesLabel = new Label("Mines:");
+
+            // Row input
             rowInput = new TextField();
             rowInput.setPromptText("8-20");
             rowInput.setMaxWidth(50);
+
+            // Column input
             colInput = new TextField();
             colInput.setPromptText("8-20");
             colInput.setMaxWidth(50);
+
+            // Mine input
             mineInput = new TextField();
             mineInput.setPromptText("12-100");
             mineInput.setMaxWidth(60);
+
+        // Adding fields + labels to bar
         bar.getChildren().addAll(startGame, rowsLabel, rowInput, colsLabel, colInput, minesLabel, mineInput);
-        barStack.getChildren().addAll(x, bar);
-        // ... game
+
+        // Adding bar + background to main StackPane
+        barStack.getChildren().addAll(barBackground, bar);
+    }
+
+    /**
+     * Helper method to create / style the game (GridPane)
+     */
+    public void createGame()
+    {
         game = new GridPane();
-            game.setStyle("-fx-background-color: transparent;");
-            game.setAlignment(Pos.CENTER);
-            game.setHgap(1);
-            game.setVgap(1);
+        game.setStyle("-fx-background-color: transparent;");
+        game.setAlignment(Pos.CENTER);
+        game.setHgap(1);
+        game.setVgap(1);
+    }
 
-        // ... error message
-        HBox error = new HBox();
-            error.setPadding(new Insets(10,10,10,10));
-            error.setAlignment(Pos.CENTER);
-            errormsg = new Label("");
+    /**
+     * Helper method to create / style error message area (HBox)
+     */
+    public void createErrorMessageArea()
+    {
+        error = new HBox();
+        error.setPadding(new Insets(10, 10, 10, 10));
+        error.setAlignment(Pos.CENTER);
+        errormsg = new Label("");
         error.getChildren().addAll(errormsg);
+    }
 
-        // ... linking everything together
-        BorderPane main = new BorderPane();
-            main.setCenter(game);
-            main.setBottom(error);
-            main.setTop(barStack);
-        Scene application = new Scene(main, 800, 600);
+    /**
+     * Helper method to add every GUI node to the stage
+     */
+    public void linkEverythingTogether()
+    {
+        // Initialize + fill main BorderPane
+        mainPane = new BorderPane();
+        mainPane.setCenter(game);
+        mainPane.setBottom(error);
+        mainPane.setTop(barStack);
+
+        // Initialize main scene w/ main BorderPane
+        application = new Scene(mainPane, 800, 600);
+
+        // Finish setting main stage config.
         window.setScene(application);
         window.setTitle("Minesweeper - dangreco & ktzyskowski");
         window.setResizable(false);
         window.show();
-
-        game.setOnScroll(scrollEvent -> zoom(scrollEvent.getDeltaY()));
-
-
-        
-        game.setOnMousePressed(mouseEvent -> {
-            originX = mouseEvent.getX();
-            originY = mouseEvent.getY();
-            application.setCursor(Cursor.CLOSED_HAND);
-        });
-        
-
-
-        game.setOnMouseReleased(mouseEvent -> application.setCursor(Cursor.DEFAULT));
-
-        game.setOnMouseDragged(mouseDragEvent -> {
-            resultX = mouseDragEvent.getX();
-            resultY = mouseDragEvent.getY();
-            game.setTranslateX(game.getTranslateX() + (resultX - originX));
-            game.setTranslateY(game.getTranslateY() + (resultY - originY));
-            dragOver = false;
-        });
-
-        game.setOnMouseDragReleased(mouseDragEvent -> dragOver = true);
-
     }
 
+    /**
+     * Helper method to handle dragging of GridPane;
+     * calculates new translation based on current translation
+     * + mouseLocation relative to origin.
+     * @param e The triggered MouseEvent
+     */
+    public void mouseDragged(MouseEvent e)
+    {
+        resultX = e.getX();
+        resultY = e.getY();
+        game.setTranslateX(game.getTranslateX() + (resultX - originX));
+        game.setTranslateY(game.getTranslateY() + (resultY - originY));
+        dragOver = false;
+    }
+
+    /**
+     * Helper method to handle mousePressed action;
+     * sets origin of click + changes cursor type
+     * @param e The triggered MouseEvent
+     */
+    public void mousePressed(MouseEvent e)
+    {
+        originX = e.getX();
+        originY = e.getY();
+        application.setCursor(Cursor.CLOSED_HAND);
+    }
+
+    /**
+     * Helper method to change scale of GridPane when zoomed
+     * > Delta is changed to either -1.0 or 1.0
+     * > Tests for either one
+     * > Checks for zoom bounds
+     * > If satisfies, changes scale according to first calc.
+     * @param delta Y-Delta of mouse scroll; either -40.0 (down) or 40.0 (up)
+     */
     public void zoom(double delta)
     {
         double scale = game.getScaleX() + delta / 40.0 * .2;
-        if (delta < 0){
-            if (game.getScaleX() > 0.3){
+        if (delta < 0) {
+            if (game.getScaleX() > 0.3) {
                 game.setScaleX(scale);
                 game.setScaleY(scale);
             }
         } else {
-            if (game.getScaleY() < 10.0){
+            if (game.getScaleY() < 10.0) {
                 game.setScaleX(scale);
                 game.setScaleY(scale);
             }
         }
-     }
-
-
-     /*
-
-       game.setOnMousePressed(mouseEvent -> {
-            originX = game.getLayoutX();
-            originY = game.getLayoutY();
-            upX = mouseEvent.getX();
-            upY = mouseEvent.getY();
-            application.setCursor(Cursor.CLOSED_HAND);
-        });
-
-        game.setOnMouseReleased(mouseEvent -> mainScene.setCursor(Cursor.DEFAULT));
-
-        game.setOnMouseDragged(mouseDragEvent -> {
-            if (dragOver) {
-                dOriginX = mouseDragEvent.getX();
-                dOriginY = mouseDragEvent.getY();
-                dragOver = false;
-            }
-
-            double transformedX = mouseOrigin.x - (upX - mouseDragEvent.getX());
-            double transformedY = mouseOrigin.y - (upY - mouseDragEvent.getY());
-            game.setLayoutX(transformedX);
-            game.setLayoutY(transformedY);
-        });
-
-        game.setOnMouseDragReleased(mouseDragEvent -> {
-
-            dUpX = mouseDragEvent.getX();
-            dUpY = mouseDragEvent.getY();
-            dragOver = true;
-
-        });
-
-
-
-      */
-
-    public void drag(MouseEvent e)
-    {
-        System.out.println("dragged");
     }
-
-    public void startDrag()
-    {
-
-    }
-
-    // ... helper methods
 
     /**
      * Checks to see if a number is within a specific range defined by
      * [lowerBound, upperBound].
-     * @param lowerBound lower bound of the range - inclusive
-     * @param upperBound upper bound of the range - inclusive
-     * @param number number being checked
-     * @return true if in range; false if not in range
+     * @param lowerBound Lower bound of the range - inclusive
+     * @param upperBound Upper bound of the range - inclusive
+     * @param number Number being checked
+     * @return True if in range; false if not in range
      */
-    private boolean inRange(int lowerBound, int upperBound, int number) {
+    private boolean inRange(int lowerBound, int upperBound, int number)
+    {
         if (number > upperBound || number < lowerBound) {
             return false;
         } else {
@@ -271,17 +326,28 @@ public class Main extends Application {
      * Searches the game GridPane for a tile object and returns
      * the row & column that it appears in, or null if it does not
      * exist.
-     * @param row row of tile being searched for
-     * @param column column of tile being searched for
-     * @return tile at pos row, column; null if tile does not exist
+     * @param row Row of tile being searched for
+     * @param column Column of tile being searched for
+     * @return Tile at pos row, column; null if tile does not exist
      */
-    public Tile getTile(int row, int column) {
-        for (Node t : game.getChildren()) {
+    public Tile getTile(int row, int column)
+    {
+        for (Node t: game.getChildren()) {
             if (game.getRowIndex(t) == row && game.getColumnIndex(t) == column) {
                 return (Tile) t;
             }
         }
         return null;
+    }
+
+    /**
+     * Helper method to return the current Minesweeper game
+     * to whatever other class needs it
+     * @return Current Minesweeper game
+     */
+    public static Minesweeper getMinesweeperGame()
+    {
+        return minesweeperGame;
     }
 
 }
