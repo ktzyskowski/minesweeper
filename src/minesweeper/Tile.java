@@ -1,10 +1,12 @@
+package minesweeper;
+
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Class to implement a Tile
+ * Class to implement a minesweeper.Tile
  */
 public class Tile extends StackPane {
 
@@ -35,7 +37,7 @@ public class Tile extends StackPane {
     }
 
     /**
-     * Method to toggle the "flagging" of a Tile
+     * Method to toggle the "flagging" of a minesweeper.Tile
      */
     public void flag() {
         if (!getClicked()) {
@@ -49,7 +51,7 @@ public class Tile extends StackPane {
     }
 
     /**
-     * Method to handle left mouse click on Tile
+     * Method to handle left mouse click on minesweeper.Tile
      */
     public void interact() {
         if (!getClicked() && !getFlagged()) {

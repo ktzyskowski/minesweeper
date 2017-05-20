@@ -1,8 +1,10 @@
+package minesweeper;
+
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 /**
- * Class to implement a NumberTile tile
+ * Class to implement a minesweeper.NumberTile tile
  */
 public class NumberTile extends Tile {
 

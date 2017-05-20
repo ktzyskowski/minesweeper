@@ -1,7 +1,9 @@
+package minesweeper;
+
 import javafx.scene.paint.Color;
 
 /**
- * Class to implement a Mine tile
+ * Class to implement a minesweeper.Mine tile
  */
 public class Mine extends Tile {
 

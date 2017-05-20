@@ -1,7 +1,9 @@
+package minesweeper;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+
 /**
- * Class to implement a Minesweeper game
+ * Class to implement a minesweeper.Minesweeper game
  */
 public class Minesweeper {
 
@@ -12,7 +14,7 @@ public class Minesweeper {
     private BiMap<Tile, Coord> quickLocations;
 
     /**
-     * Constructor for Minesweeper game.
+     * Constructor for minesweeper.Minesweeper game.
      * @param rows  Amount of rows
      * @param cols  Amount of columns
      * @param bombs Number of bombs to place
@@ -50,7 +52,7 @@ public class Minesweeper {
             }
         }
 
-        // Generate Mine tiles
+        // Generate minesweeper.Mine tiles
         while (bombs > 0){
             int r = (int)(Math.random()*board.length);
             int c = (int)(Math.random()*board[r].length);
@@ -78,7 +80,7 @@ public class Minesweeper {
 
     /**
      * Method to get a list of Tiles to reveal on click on origin.
-     * @param t Specified root Tile
+     * @param t Specified root minesweeper.Tile
      * @return Arraylist containing Tiles to reveal
      */
     public ArrayList<Tile> getReveals(Tile t)
@@ -132,7 +134,7 @@ public class Minesweeper {
      * Method to deduce the number of surrounding tiles.
      * @param row   The specified row of the tile
      * @param col   The specified column of the tile
-     * @return      The number of mines surrounding the tile; 0 for blank or if Mine
+     * @return      The number of mines surrounding the tile; 0 for blank or if minesweeper.Mine
      */
     public int getNumber(int row, int col)
     {
@@ -154,7 +156,7 @@ public class Minesweeper {
      * Method to get the coordinates of adjacent tiles.
      * @param row   The specified row of the tile
      * @param col   The specified column of the tile
-     * @return      ArrayList containing Tile objects of locations of valid adjacent tiles
+     * @return      ArrayList containing minesweeper.Tile objects of locations of valid adjacent tiles
      */
     public ArrayList<Tile> getAdjacent(int row, int col)
     {
@@ -173,7 +175,7 @@ public class Minesweeper {
      * Method to deduce if a given coordinate is in bounds.
      * @param row   The specified row of the tile
      * @param col   The specified column of the tile
-     * @return      True if Tile is in bounds of board, false otherwise
+     * @return      True if minesweeper.Tile is in bounds of board, false otherwise
      */
     public boolean isInBounds(int row, int col)
     {

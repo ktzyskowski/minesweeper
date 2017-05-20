@@ -1,3 +1,5 @@
+package minesweeper;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -8,7 +10,7 @@ public class BiMap<K, V> extends HashMap<K, V> {
 
     /**
      * Method to return inverse map
-     * @return Inverse BiMap
+     * @return Inverse minesweeper.BiMap
      */
     public BiMap<V, K> inverse()
     {

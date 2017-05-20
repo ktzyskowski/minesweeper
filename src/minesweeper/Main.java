@@ -1,3 +1,5 @@
+package minesweeper;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,17 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * Main application class
+ */
 public class Main extends Application {
 
     // Static variables
@@ -44,7 +44,7 @@ public class Main extends Application {
 
 
     /**
-     * Main launch of application
+     * minesweeper.Main launch of application
      * @param args Specified arguments
      */
     public static void main(String[] args)
@@ -199,7 +199,7 @@ public class Main extends Application {
             colInput.setPromptText("8-20");
             colInput.setMaxWidth(50);
 
-            // Mine input
+            // minesweeper.Mine input
             mineInput = new TextField();
             mineInput.setPromptText("12-100");
             mineInput.setMaxWidth(60);
@@ -251,7 +251,7 @@ public class Main extends Application {
 
         // Finish setting main stage config.
         window.setScene(application);
-        window.setTitle("Minesweeper - dangreco & ktzyskowski");
+        window.setTitle("minesweeper.Minesweeper - dangreco & ktzyskowski");
         window.setResizable(false);
         window.show();
     }
@@ -330,7 +330,7 @@ public class Main extends Application {
      * exist.
      * @param row Row of tile being searched for
      * @param column Column of tile being searched for
-     * @return Tile at pos row, column; null if tile does not exist
+     * @return minesweeper.Tile at pos row, column; null if tile does not exist
      */
     public Tile getTile(int row, int column)
     {
@@ -343,9 +343,9 @@ public class Main extends Application {
     }
 
     /**
-     * Helper method to return the current Minesweeper game
+     * Helper method to return the current minesweeper.Minesweeper game
      * to whatever other class needs it
-     * @return Current Minesweeper game
+     * @return Current minesweeper.Minesweeper game
      */
     public static Minesweeper getMinesweeperGame()
     {

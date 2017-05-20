@@ -1,3 +1,5 @@
+package minesweeper;
+
 /**
  * Class to implement a Coordinate object
  */
