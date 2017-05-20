@@ -8,4 +8,4 @@ The project is a replica minesweeper.Minesweeper game with a modern touch.
 
 # Documentation
 
-[Minesweeper Documentation](https://rawgit.com/ktzyskowski/minesweeper/master/info/jdoc/index.html)
+[Minesweeper Documentation](https://minesweeperdoc.000webhostapp.com/)
