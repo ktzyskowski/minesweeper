@@ -121,6 +121,9 @@ public class Main extends Application {
     public void defeat()
     {
         System.out.println("defeat");
+        window.hide();
+        window.setScene(new Scene(new OverPane("You Lost!", 2000,2)));
+        window.show();
     }
 
     /**
