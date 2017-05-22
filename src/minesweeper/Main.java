@@ -29,6 +29,7 @@ public class Main extends Application {
     // Instance variables
 
     private int rows, columns, mines;
+
     private Coord origin, result;
 
     private Stage window;

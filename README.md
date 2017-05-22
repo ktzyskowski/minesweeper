@@ -1,4 +1,4 @@
-# minesweeper.Minesweeper
+# Minesweeper
 This is ktzyskowski and dangreco's final project for APCSA.
 
 The project is a replica minesweeper.Minesweeper game with a modern touch.
