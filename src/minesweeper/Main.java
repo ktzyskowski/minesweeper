@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -108,7 +109,11 @@ public class Main extends Application {
             for (int c = 0; c < columns; c++) {
                 game.add(internalBoard[r][c], c, r);
                 if (internalBoard[r][c] instanceof Mine) {
-                    internalBoard[r][c].setOnMouseClicked(event -> defeat());
+                    internalBoard[r][c].setOnMouseClicked(event -> {
+                        if (event.getButton().equals(MouseButton.PRIMARY)) {
+                            defeat();
+                        }
+                    });
                 }
             }
         }
