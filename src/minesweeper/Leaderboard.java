@@ -89,7 +89,7 @@ public class Leaderboard {
 
     public static void saveLeaderboard(Leaderboard board)
     {
-        File output = new File("leaderboard.txt");
+        File output = new File("/home/dan/Desktop/minesweeper/src/minesweeper/leaderboard.txt");
 
         try {
             FileWriter outputWriter = new FileWriter(output);
@@ -97,6 +97,7 @@ public class Leaderboard {
                 outputWriter.write(s.toString());
             }
             outputWriter.close();
+            System.out.println("written to file");
         } catch (Exception e){
             return;
         }

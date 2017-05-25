@@ -5,19 +5,22 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
 public class OverPane extends GridPane{
-
+    private int rawScore;
     private Text result, score, minesFlagged;
     private ListView<String> leaderboard;
     private TextField leaderboardName;
     private Button leaderboardSubmit, playAgain;
+    private Leaderboard board;
 
     public OverPane(String result, int score, int minesFlagged)
     {
         super();
+        this.rawScore = score;
         this.result = new Text(result);
         this.score = new Text(Integer.toString(score));
         this.minesFlagged = new Text(Integer.toString(minesFlagged));
@@ -29,6 +32,8 @@ public class OverPane extends GridPane{
 
         leaderboard.setMaxHeight(100.0);
         leaderboard.setMaxWidth(175.0);
+
+        leaderboardSubmit.setOnMouseClicked(mouseEvent -> export());
 
         fillLeaderboard();
 
@@ -42,12 +47,17 @@ public class OverPane extends GridPane{
 
 
 
+    }
 
+    public void export()
+    {
+        board.getScores().add(new Leaderboard.Score(leaderboardName.getText(), rawScore));
+        Leaderboard.saveLeaderboard(board);
     }
 
     public void fillLeaderboard()
     {
-        Leaderboard board = Leaderboard.loadLeaderboard();
+        board = Leaderboard.loadLeaderboard();
         if (board != null){
             ArrayList<Leaderboard.Score> scores = board.getScores();
             if (scores != null){
