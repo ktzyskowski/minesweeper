@@ -67,6 +67,7 @@ public class Tile extends StackPane {
         setClicked(true);
         this.getSelf().setFill(Color.LIGHTGRAY);
         this.getSelf().setStroke(Color.LIGHTGRAY);
+        Minesweeper.score += 10;
     }
 
     /**

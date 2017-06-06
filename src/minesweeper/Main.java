@@ -111,7 +111,7 @@ public class Main extends Application {
                 if (internalBoard[r][c] instanceof Mine) {
                     internalBoard[r][c].setOnMouseClicked(event -> {
                         if (event.getButton().equals(MouseButton.PRIMARY)) {
-                            defeat();
+                            endGame("Defeat!");
                         }
                     });
                 }
@@ -123,12 +123,17 @@ public class Main extends Application {
      * Method that is called when a mine is clicked by
      * user. Ends the game.
      */
-    public void defeat()
+    public void endGame(String res)
     {
-        System.out.println("defeat");
+        System.out.println(res);
         window.hide();
-        window.setScene(new Scene(new OverPane("You Lost!", 2000,2)));
+        OverPane gameOver = new OverPane(res, Minesweeper.score, amountOfFlaggedMines());
+        gameOver.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
+            start(window);
+        });
+        window.setScene(new Scene(gameOver));
         window.show();
+
     }
 
     /**
@@ -359,6 +364,19 @@ public class Main extends Application {
     public static Minesweeper getMinesweeperGame()
     {
         return minesweeperGame;
+    }
+
+
+    public int amountOfFlaggedMines()
+    {
+        int flaggedCount = 0;
+        for (Tile[] subArr : minesweeperGame.getBoard()){
+            for (Tile t : subArr){
+                if (t instanceof Mine && t.getFlagged())
+                    ++flaggedCount;
+            }
+        }
+        return flaggedCount;
     }
 
 }

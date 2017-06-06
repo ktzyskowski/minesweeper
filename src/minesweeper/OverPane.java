@@ -22,8 +22,8 @@ public class OverPane extends GridPane{
         super();
         this.rawScore = score;
         this.result = new Text(result);
-        this.score = new Text(Integer.toString(score));
-        this.minesFlagged = new Text(Integer.toString(minesFlagged));
+        this.score = new Text("Score: " + Integer.toString(score));
+        this.minesFlagged = new Text("Mines Flagged: " + Integer.toString(minesFlagged));
         this.leaderboard = new ListView<>();
         this.leaderboard.getItems().add(0, "--- LEADERBOARD ---");
         this.playAgain = new Button("Play Again");
@@ -47,6 +47,11 @@ public class OverPane extends GridPane{
 
 
 
+    }
+
+    public Button getPlayAgainButton()
+    {
+        return  playAgain;
     }
 
     public void export()

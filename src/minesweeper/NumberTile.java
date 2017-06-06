@@ -59,6 +59,7 @@ public class NumberTile extends Tile {
         this.number.setText(Integer.toString(num));
         this.getSelf().setFill(color);
         this.getSelf().setStroke(color);
+        Minesweeper.score += 15;
     }
 
     @Override

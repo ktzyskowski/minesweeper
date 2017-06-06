@@ -12,6 +12,7 @@ public class Minesweeper {
     private ArrayList<Tile> reveals;
     private ArrayList<Tile> visted;
     private BiMap<Tile, Coord> quickLocations;
+    public static int score;
 
     /**
      * Constructor for minesweeper.Minesweeper game.
